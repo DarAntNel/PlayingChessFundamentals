@@ -1,105 +1,101 @@
 import chess
 import sys
+import time
 board =chess.Board()
-#[Hello Hello Hello]
-#[print(functions) for functions in dir(board)]
-#[print(functions) for functions in dir(board)]
+def findNextMove(board, player, depth):
+    while not board.is_game_over():
+        print("start",time.strftime("%H:%M:%S", time.localtime()))
+        moveToMake = maxValue(board, depth)[1]
+        print(f"White plays: {moveToMake}")
+        board.push(moveToMake)
+        print("finish",time.strftime("%H:%M:%S", time.localtime()))
+        print(board)
 
-legalmoves=board.legal_moves
-print(board.pawns)
-print(board)
-#NF3=chess.Move.from_uci("g1f3")
-#print(board._generate_evasions())
-#board.push(NF3)
-def findNextMove(board,player,depth):
-
-    print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
-    ##while not board.is_stalemate() or  not board.is_insufficient_material() or not board.is_checkmate():
-    moveTomake=maxValue(board,player,depth)[1]
-    board.push(moveTomake)
-    legalMoves=board.legal_moves
-    oppnentMove=None
-
-
-    #while oppnentMove not in legalMoves:
-    #    oppnentMove=input("Its your turn").strip()
-
-    #    board.push(oppnentMove)
+        while True:
+            oppInput = input("Black to move (in UCI format, e.g. e7e5): ").strip()
+            try:
+                oppMove = chess.Move.from_uci(oppInput)
+                if oppMove in board.legal_moves:
+                    board.push(oppMove)
+                    break
+                else:
+                    print("Illegal move. Try again.")
+            except:
+                print("Invalid format. Try again.")
 
 
 
+def maxValue(board,depth):
 
 
-def maxValue(board,player,depth):
-            legalmoves=[action for action in board.legal_moves]
-            print(depth,len(legalmoves))
-            if  len(legalmoves)==0 or depth==0 or board.is_stalemate() or board.is_insufficient_material() or board.is_game_over():
-              return  evaluateMove(board,player),None
+    legalmoves=list(board.legal_moves)
 
-            #legalmoves=board.legal_moves
-            bestMove=float('-inf')
-            bestAction=None
+    if  depth==0 or  board.is_game_over():
+        return  evaluateMove(board),None
 
-            for actions in legalmoves:
+    bestMove=float('-inf')
+    bestAction=None
 
-                #play=chess.Move.from_uci(actions)
-                board.push(actions)
-                #print(board,"\n\n")
-                nextDepth=depth
+    for actions in legalmoves:
+        board.push(actions)
+        CostToMove=minValue(board,depth-1)[0]
+        board.pop()
+        if CostToMove>bestMove:
+           bestMove=CostToMove
+           bestAction=actions
 
-                CostToMove=minValue(board,player,nextDepth)[0]
-                board.pop()
-                if CostToMove>bestMove:
-                   bestMove=CostToMove
-                   bestAction=actions
+    return bestMove,bestAction
+    #simulating black is move
+def minValue(board,depth):
 
-            return bestMove,bestAction
-    #black is moving
-def minValue(board,player,depth):
-        legalmoves=[action for action in board.legal_moves]
-        if  len(legalmoves)==0 or board.is_stalemate() or board.is_insufficient_material() or board.is_checkmate():
-             return  evaluateMove(board,player),None
-        worstMove=float('inf')
-        worstAction=None
-        for actions in legalMoves:
-            #play=board.Move.from_uci(actions)
-            board.push(actions)
-            nextDepth=depth-1
-            CostToMove=maxValue(board,player-1,nextDepth)[0]
-            #print(CostToMove)
-            board.pop()
-            if worstMove>CostToMove:
-                worstMove=CostToMove
-                worstAction=actions
+    legalmoves=board.legal_moves
+    #print(depth)
 
-        return worstMove,worstAction
-def evaluateMove(board,player):
-     value=0
-     legalmoves=board.legal_moves
-     if legalmoves==0:
-          if board.is_chackmate():
-               return -100
+    if  depth ==0 or board.is_game_over():
+        return  evaluateMove(board),None
+    worstMove=float('inf')
+    worstAction=None
 
-     elif board.is_stalemate()==True:
-          return -10
-     elif board.is_insufficient_material()==True:
-          return -10
-     else:
-          pieceArray=(((str(legalMoves))[38:])[:-2]).split(',')
-          i=0
-          for actions in legalmoves:
-              if pieceArray[i][0]=='Q':
-                  value=value+20
-              elif pieceArray[i][0]=='N':
-                  value=value+8
-              elif pieceArray[i][0]=='B':
-                  value=value+13
-              elif pieceArray[i][0]=='R':
-                  value=value+14
-              else:
-                  value=value+int(str(actions)[1])+1
+    for actions in legalmoves:
+        board.push(actions)
+        costToMove=maxValue(board,depth-1)[0]
+        board.pop()
+        if worstMove>costToMove:
+            worstMove=costToMove
+            worstAction=actions
 
-     return value
+    return worstMove,worstAction
+
+
+
+def evaluateMove(board):
+    #return len(list(board.legal_moves))
+    value=0
+    legalmoves=board.legal_moves
+    if len(list(legalmoves))==0:
+      if board.is_checkmate():
+           return -100
+
+    elif board.is_stalemate()==True:
+      return -10
+    elif board.is_insufficient_material()==True:
+      return -10
+    else:
+      pieceArray=(((str(legalmoves))[38:])[:-2]).split(',')
+      i=0
+      for actions in legalmoves:
+          if pieceArray[i][0]=='Q':
+              value=value+20
+          elif pieceArray[i][0]=='N':
+              value=value+8
+          elif pieceArray[i][0]=='B':
+              value=value+13
+          elif pieceArray[i][0]=='R':
+              value=value+14
+          else:
+              value=value+int(str(actions)[1])+1
+
+    return value
 
 
 
@@ -117,16 +113,19 @@ count=0
          board.push(element)
          print(board)
          count=count+1'''
-#pieceArray=(((str(board.legal_moves))[38:])[:-2]).split(',')
+pieceArray=(((str(board.legal_moves))[38:])[:-2]).split(',')
 #strs=str(board.legal_moves)
 #car=strs[38:]
 #car1=car[:-2].split(',')
+#print(dir(board))
+#print(board)
 #count=0
 '''for element in board.legal_moves:
 
-    print(dir(element))
-    print(pieceArray[count][0],)
-    print(str(element)[0])
+    #print(dir(element))
+    #print(pieceArray[count][0])
+    #print(str(element)[0])
+    #print(dir(element.__getstate__))
     count=count+1'''
 #[print(function) for function in dir(board)]
 
@@ -135,7 +134,6 @@ count=0
 #[print(functions.__dataclass_params__) for functions in board.legal_moves]
 
 player=1
-findNextMove(board,player,depth)
-print(board.pawns,board.bishops)
-#print(board.is_checkmate())
+findNextMove(board,'white',depth)
+
 #
