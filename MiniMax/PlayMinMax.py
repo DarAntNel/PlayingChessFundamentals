@@ -1,14 +1,19 @@
 import chess
 import sys
 import time
-board =chess.Board()
+board=chess.Board()
 def findNextMove(board, player, depth):
     while not board.is_game_over():
         print("start",time.strftime("%H:%M:%S", time.localtime()))
+
+
         moveToMake = maxValue(board, depth)[1]
         print(f"White plays: {moveToMake}")
+
         board.push(moveToMake)
         print("finish",time.strftime("%H:%M:%S", time.localtime()))
+
+
         print(board)
 
         while True:
@@ -27,16 +32,13 @@ def findNextMove(board, player, depth):
 
 def maxValue(board,depth):
 
-
-    legalmoves=list(board.legal_moves)
-
     if  depth==0 or  board.is_game_over():
         return  evaluateMove(board),None
 
     bestMove=float('-inf')
     bestAction=None
 
-    for actions in legalmoves:
+    for actions in board.legal_moves:
         board.push(actions)
         CostToMove=minValue(board,depth-1)[0]
         board.pop()
@@ -47,16 +49,12 @@ def maxValue(board,depth):
     return bestMove,bestAction
     #simulating black is move
 def minValue(board,depth):
-
-    legalmoves=board.legal_moves
-    #print(depth)
-
     if  depth ==0 or board.is_game_over():
         return  evaluateMove(board),None
     worstMove=float('inf')
     worstAction=None
 
-    for actions in legalmoves:
+    for actions in board.legal_moves:
         board.push(actions)
         costToMove=maxValue(board,depth-1)[0]
         board.pop()
@@ -69,31 +67,92 @@ def minValue(board,depth):
 
 
 def evaluateMove(board):
-    #return len(list(board.legal_moves))
+    #pieces={'Pawn':1,'Rook':5,'Bishop':3,'Knight':3,'Queeen':9,'King':0}
     value=0
-    legalmoves=board.legal_moves
-    if len(list(legalmoves))==0:
-      if board.is_checkmate():
-           return -100
+    if board.is_checkmate():
+        if board.turn==chess.WHITE:
+            return -100
+        else:
+            return +100
 
     elif board.is_stalemate()==True:
-      return -10
+        if board.turn==chess.WHITE:
+            return +10
+        else:
+            return -10
+
+
     elif board.is_insufficient_material()==True:
-      return -10
+      if board.turn==chess.WHITE:
+          return +10
+      else:
+          return -10
     else:
-      pieceArray=(((str(legalmoves))[38:])[:-2]).split(',')
-      i=0
-      for actions in legalmoves:
-          if pieceArray[i][0]=='Q':
-              value=value+20
-          elif pieceArray[i][0]=='N':
-              value=value+8
-          elif pieceArray[i][0]=='B':
-              value=value+13
-          elif pieceArray[i][0]=='R':
-              value=value+14
-          else:
-              value=value+int(str(actions)[1])+1
+        last_move=str(board.peek())
+        last_move1=board.peek()
+        piece=board.piece_at(last_move1.to_square)
+        #print(last_move[-2:])
+        column=last_move[-2]
+        row=last_move[-1]
+        if piece==1:
+            value=1+int(row)
+            if int(column)=='h' or colum=='a':
+                value=value+1
+            if board.is_capture(last_move)==True:
+                value=value+2
+
+
+
+        elif piece==2:
+            if last_move[-2:] in ['a1','a8','h1','h8']:
+                value=value+2
+            #determine if ther was a  capture==# TODO:
+
+            elif last_move[-2:] in ['b1','b8','g1','g8','a2','h2','a7','h7']:
+                value=value+3
+            elif last_move[-2:] in ['b2','c1','d1','e1','f1','g2','b7','c8','d8','e8','f8','g7','a3','a4','a5','a6','h3','h4','h5','h6']:
+                value=value+4
+            elif last_move[-2:] in ['c2','d2','e2','f2','c7','d7','e7','f7','b3','b4','b5','b6','g3','g4','g5','g6']:
+                value=value+6
+            else:
+                value=value+8
+
+
+
+        elif piece==3:
+            if last_move[-2:] in ['c1','a3','f1','h3','a6','c8','f8','h6','a2','a7','h2','h7']:
+                value=value+7
+            elif last_move[-2:] in ['b2','b7','g2','g7','c2','d2','e2','f2','c7','d7','e7','f7','b3','b4','b5','b6','g3','g4','g5','g6']:
+                value=value+9
+            elif last_move[-2:] in ['d5','e5','d4','e4']:
+                value=value+13
+            else:
+                value=value+11
+        elif piece==4:
+            #if last_move[-2:] in ['a1','b1','c1','d1','e1','f1','g1','h1','h2','h2','h4','h4','h6','h7','h8','g8','f8','e8','d8','c8','b8','a8']:
+            vlaue=value+14
+        elif piece==5:
+            if last_move[-2:] in ['a1','b1','c1','d1','e1','f1','g1','h1','h2','h2','h4','h4','h6','h7','h8','g8','f8','e8','d8','c8','b8','a8']:
+                value=value+21
+            elif last_move[-2:] in ['b2','b3','b4','b5','b6','b7','c2','d2','e2','f2','g2','g3','g4','g5','g6','g7','f7','e7','d7','c7']:
+                value=value+23
+            elif last_move[-2:] in ['d5','e5','d4','e4']:
+                value=value+27
+            else:
+                value=value+25
+        else:
+            if last_move[-2:] in ['a1','h1','a8','h8']:
+                value=value+3
+            elif last_move[-2:] in ['b1','c1','d1','e1','f1','g1','h2','h4','h6','h7','g8','f8','e8','d8','c8','b8']:
+                value=value+5
+            else:
+                value=value+8
+
+
+
+
+
+
 
     return value
 
@@ -135,5 +194,3 @@ pieceArray=(((str(board.legal_moves))[38:])[:-2]).split(',')
 
 player=1
 findNextMove(board,'white',depth)
-
-#
