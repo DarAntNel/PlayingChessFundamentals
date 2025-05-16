@@ -7,7 +7,7 @@ import webbrowser
 import os
 import sys
 
-from MimiMax import findNextMove as Minimax
+from MiniMax import findNextMove as Minimax
 from Expectimax import findNextMove as Expecti
 from AphaBeta import findNextMove as Alpha
 
@@ -17,7 +17,9 @@ from AphaBeta import findNextMove as Alpha
 
 chess_engine = r"C:\Users\justino.dasilva\Documents\Masters\Fundamentals F AI\Projects\stockfish\stockfish-windows-x86-64-avx2.exe"
 gameMoves=chess.pgn.Game()
+kingAttackedNotDefended="7k/6P1/B7/8/8/8/8/6K1 w HAha - 0 1"
 board=chess.Board()
+
 print("start",time.strftime("%H:%M:%S", time.localtime()))
 
 
@@ -28,7 +30,7 @@ def playMiniMax(depth=3):
     count=1
     print(f"{count}.",board.san(MyPlay),end=' ')
     board.push(MyPlay)
-    svg_path=system=os.path.realpath('PlayingStockfish.html')
+    svg_path=system=os.path.realpath('PLayEngine.html')
     webbrowser.open('file://'+svg_path)
     while not board.is_game_over():
         with chess.engine.SimpleEngine.popen_uci(chess_engine) as engine:
@@ -54,12 +56,13 @@ def playMiniMax(depth=3):
                 f.write(chess.svg.board(board))
             if board.is_checkmate():
                 return "Congratualtions you are vitorious"
+
 def playAlphaBeta(depth=3):
     MyPlay=Alpha(board,depth,captured=None,moving_piece=None,move_square=None)
     count=1
     print(f"{count}.",board.san(MyPlay),end=' ')
     board.push(MyPlay)
-    svg_path=system=os.path.realpath('PlayingStockfish.html')
+    svg_path=system=os.path.realpath('PLayEngine.html')
 
 
     webbrowser.open('file://'+svg_path)
@@ -94,7 +97,7 @@ def playExpectimax(depth=3):
     count=1
     print(f"{count}.",board.san(MyPlay),end=' ')
     board.push(MyPlay)
-    svg_path=system=os.path.realpath('PlayingStockfish.html')
+    svg_path=system=os.path.realpath('PLayEngine.html')
 
 
     webbrowser.open('file://'+svg_path)
@@ -123,10 +126,13 @@ def playExpectimax(depth=3):
             if board.is_checkmate():
                 return "Congratualtions you are vitorious"
 
+kingAttackedNotDefended="7k/6P1/B7/8/8/8/8/6K1 w HAha - 0 1"
+
+
 if __name__ == "__main__":
-    depth=int(sys.argv[1])
-    agent=sys.argv[2]
-    print("Usage: Depth, agent")
+    agent=sys.argv[1]
+    depth=int(sys.argv[2])
+    print("Usage: Agent depth")
 
     if agent=='ExpectiMax':
         playExpectimax(depth)
@@ -135,7 +141,7 @@ if __name__ == "__main__":
     elif agent=='MiniMax':
         playMiniMax(depth)
     else:
-        print(" incorrect input Usage example: python 3 MimiMax")
+        print(" incorrect input Usage example: python MiniMax 3")
 
 
 

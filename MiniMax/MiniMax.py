@@ -13,7 +13,7 @@ def findNextMove(board, depth,captured,moving_piece,move_square):
 def maxValue(board,depth,captured,moving_piece,move_square):
 
     if  depth==0 or  board.is_game_over():
-        #print("turn=White",board.turn==chess.WHITE)
+
         return  add_postionValue(board,captured,moving_piece,move_square),None
 
     bestMove=float('-inf')

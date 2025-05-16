@@ -4,7 +4,7 @@ import pickle
 import chess.svg
 import webbrowser
 import os
-board=chess.Board()
+#board=chess.Board()
 
 
 pieces = {
@@ -38,7 +38,17 @@ BlackPieces = {
     'k': 0,
 
 }
+betterhorse="rnbqkbnr/pp3pp1/2p5/3pp2p/8/1N6/PPPPPPPP/RNBQKB1R b KQkq - 1 5"
+horsed7="rnbqkbnr/pp1N1pp1/2p5/3pp2p/8/8/PPPPPPPP/RNBQKB1R b KQkq - 1 5"
+queentakesPawn="r1bqkb1r/ppp2pp1/2n2n1p/3pp1Q1/7P/4P3/PPPP1PP1/RNB1KBNR w KQkq - 0 6"
+queensMovesback="r1bqkb1r/ppp2pp1/2n2n1p/3pp3/7P/4P1Q1/PPPP1PP1/RNB1KBNR b KQkq - 1 6"
+wayBetter="rnbqkbnr/pppp1ppp/4p3/8/8/3P3N/PPP1PPPP/RNBQKB1R w KQkq - 0 1"
+Stupid="rnbqkbnr/pppp1ppp/4p3/6N1/8/8/PPPPPPPP/RNBQKB1R w KQkq - 0 1"
 positions =[square for square in chess.SQUARES]
+kingAttackedNotDefended="7k/6P1/B7/8/8/8/8/6K1 w HAha - 0 1"
+kingAttacked="7k/6P1/B4P2/8/8/8/8/6K1 w HAha - 0 1"
+simmpleevaluation1="8/6Pk/B7/8/8/8/8/6K1 w - - 0 1"
+simmpleevaluation2="8/6Pk/5K2/1B6/8/8/8/8 w HAha - 0 1"
 betterMove="rnbqkbnr/pp1pppp1/2p4p/8/8/5N2/PPPPPPPP/RNBQKB1R b KQkq - 1 3"
 foolishmove="rnbqkbnr/pp1ppppN/2p4p/8/8/8/PPPPPPPP/RNBQKB1R b KQkq - 1 3"
 fen1="r1bqkb1r/ppp1pp1p/5np1/3p4/1P1P4/2NB1N2/P3PPPP/R1BQKB1R w KQkq - 0 61"
@@ -52,32 +62,47 @@ attackedForwardmove="r2qk1nr/ppp2Npp/2n2p2/3pp3/1b5P/1RN5/PPPPPPP1/R1BQK3 w Qkq 
 lessAponentAttacingHighervalue="rnbqkbnr/pp1p2pp/2p2p2/4p1N1/7P/8/PPPPPPP1/RNBQKB1R w KQkq - 0 4"
 blackUnefended="r2qkbnr/p1pp1ppp/n2bp3/1B6/8/4P3/PPPP1PPP/RNBQK2R w KQkq - 0 1"
 fen4="rnbqkbnr/p1pp1ppp/4p3/1p4N1/8/4P3/PPPP1PPP/RNBQKB1R w KQkq - 0 1"
-fenValue=betterMove
 
-board=chess.Board(fenValue)
+mate1="6k1/8/5QK1/8/8/8/8/8 w - - 0 1"
+mate="3Q2k1/8/6K1/8/8/8/8/8 b - - 0 1"
+queenChecks="rnbqk1nr/ppppb1pp/5pQ1/4p3/8/2P2N2/PP1PPPPP/RNB1KB1R b KQkq - 1 4"
+e4Instead="rnbqk1nr/ppppb1pp/5p2/4p3/4P3/2P2N2/PPQP1PPP/RNB1KB1R b KQkq - 0 4"
+fenValue=e4Instead
+
+
+'''board=chess.Board(fenValue)
 with open("test.svg", "w") as f:
     f.write(chess.svg.board(board))
-webbrowser.open('file://' + os.path.realpath("test.svg"))
+webbrowser.open('file://' + os.path.realpath("test.svg"))'''
 Squarevalue=dict()
 sol=[[],[],[],[],[],[],[],[]]
-#def valueofPieceAtPostition()
-def add_postionValue(fenValue,captured,moving_piece,move_square):
+#def valueofPieceAtPostition()'''
+def add_postionValue(board,captured,moving_piece,move_square):
+
+
 
    if board.is_checkmate():
-        if board.turn==chess.WHITE:
-            return -10000
-        else:
+
+        if f'{moving_piece}' in WhitePieces:
+
             return 10000
+        else:
+
+
+            return -10000
    elif board.is_stalemate():
-        if board.turn==chess.WHITE:
-            return -5000
-        else:
+        if f'{moving_piece}' in WhitePieces:
+
             return 5000
+        else:
+
+            return -5000
    elif board.is_insufficient_material():
-        if board.turn==chess.WHITE:
+        if f'{moving_piece}' in WhitePieces:
+
             return 6000
         else:
-            return 6000
+            return -6000
 
 
 
@@ -116,14 +141,15 @@ def add_postionValue(fenValue,captured,moving_piece,move_square):
         total_blackvalue=0
         WhiteReturn=0
         BlackReturn=0
-        # calculate the total value of the  white attackers
+        # calculate the total value of the  white attackers by piece value
         for item in white_attackers:
             #if the white  king attacking the target square set  it value to True
             AttackingPiece=board.piece_at(item)
             if f'{AttackingPiece}'=='K':
                 whiteking=True
             total_whitevalue=total_whitevalue+WhitePieces[f'{AttackingPiece}']
-        #calculate the total value of the black_attackers
+
+        #calculate the total value of the black_attackers by value of black pices
 
 
         for item in black_attackers:
@@ -135,7 +161,8 @@ def add_postionValue(fenValue,captured,moving_piece,move_square):
         '''///////////////////////////Static board  evaluation//////////////////////////'''
         if f'{AttackedPiece}' in BlackPieces: # tThe square we are looking at has a black pice
 
-             BlackReturn=BlackReturn+blackrank
+             if f'{AttackedPiece}'=='p':
+                 BlackReturn=BlackReturn+blackrank
 
              if WhiteLength==0 and BlackLength>0: #if no piece white piece is attacking its value
                 BlackReturn=BlackReturn+total_blackvalue
@@ -158,6 +185,7 @@ def add_postionValue(fenValue,captured,moving_piece,move_square):
              #value of the piece in question plus increase its rank its no a hgher rank
              #elif WhiteLength==0 and BlackLength==0:
              if WhiteLength==0 and BlackLength==0:
+                 #print("NO ONE Came her Black")
                  #print("testing Rank  isolated blaack",AttackedPiece,"on",target_square)
                  BlackReturn=BlackReturn+BlackPieces[f'{AttackedPiece}']
              #if the king is in check and has to move
@@ -165,17 +193,34 @@ def add_postionValue(fenValue,captured,moving_piece,move_square):
                  BlackReturn=BlackReturn+total_blackvalue
 
              if f'{AttackedPiece}'=='k':
+                 #print("black king in check")
                  BlackReturn=0
 
 
 
         #A White piece is on  square we are looking at
         if f'{AttackedPiece}' in WhitePieces:
-            WhiteReturn=WhiteReturn+rank
+
+            ## special cases  to consider
+            if f'{AttackedPiece}'=='P':
+
+                WhiteReturn=WhiteReturn+rank
+            if f'{AttackedPiece}'=='K' and BlackLength==0:
+                WhiteReturn=0#need to consider defending pices of attacers
+            elif f'{AttackedPiece}'=='K' and WhiteLength:
+                WhiteReturn=WhiteReturn+1
+            elif f'{AttackedPiece}'!='K' and BlackLength==0 :
+                #print("before",WhiteReturn)
+                WhiteReturn=WhiteReturn+WhitePieces[f'{AttackedPiece}']
+                #print("after",WhiteReturn)
+
+            ######################## special cases
 
             #if the current pices is not being attacked by a black piece but its deended
             if BlackLength==0 and WhiteLength>0:
+
                 WhiteReturn=WhiteReturn+total_whitevalue#add 1 for the piece itself
+                #print("We are looking at a white piece",WhiteReturn)
             #if the current piece is being attacked but not being defended  reduce  by the pieve value
             elif BlackLength>0  and WhiteLength==0:
                 WhiteReturn=WhiteReturn-WhitePieces[f'{AttackedPiece}']-total_blackvalue-whiterank-(8-(whiterank)+1)
@@ -188,14 +233,15 @@ def add_postionValue(fenValue,captured,moving_piece,move_square):
                 WhiteReturn=WhiteReturn+(WhiteLength-BlackLength) -WhitePieces[f'{AttackedPiece}']-(total_blackvalue-total_whitevalue)-whiterank-(8-(whiterank)+1)
             #if the pice is isolated  it is neither defended not AttackedPiece
             elif BlackLength==0 and WhiteLength==0:# dont allow a pice to go our isolated
+
                 WhiteReturn=WhiteReturn+WhitePieces[f'{AttackedPiece}']
             elif BlackLength>0 and WhiteLength>0 and WhiteLength==BlackLength:
-                WhiteReturn=WhiteReturn+total_whitevalue
-            if AttackedPiece=='K':
-                WhiteReturn=0
+                WhiteReturn=WhiteReturn-total_whitevalue-(8-(whiterank-1))-WhitePieces[f'{AttackedPiece}']
 
 
 
+
+        '''//////////////////////////Static evaluation if the board//////////////////'''
 
 
         if target_square==move_square and captured!=None:
@@ -271,12 +317,13 @@ def add_postionValue(fenValue,captured,moving_piece,move_square):
    for item in sol:
        total= total+sum(item)
    #print(total)
-   for item in range(7,-1,-1):
+   #print(board)
+   '''for item in range(7,-1,-1):
         print(sol[item])
-   print(total)
-   return total
+   print(total)'''
+   return abs(total)
 
-add_postionValue(fenValue,captured=None,moving_piece='N',move_square=21)
+#add_postionValue(board,captured='None',moving_piece='Q',move_square=46)
 
 #for item in range(7,-1,-1):
 #     print(sol[item])

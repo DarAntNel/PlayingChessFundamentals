@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Chess Board</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;a
+            align-items: center;
+            background: #222;
+            height: 100vh;
+        }
+        object {
+            max-width: 90vw;
+            max-height: 90vh;
+            border: 2px solid white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <object id="chessboard" type="image/svg+xml" data="test.svg" width="600" height="600"></object>
+
+    <script>
+        let lastModified = null;
+
+        function refreshSVG() {
+            fetch('test.svg', { cache: "no-store" })
+                .then(res => res.headers.get('Last-Modified'))
+                .then(modified => {
+                    if (modified !== lastModified) {
+                        lastModified = modified;
+                        const svgObject = document.getElementById("chessboard");
+                        svgObject.setAttribute("data", "test.svg?" + new Date().getTime());
+                    }
+                });
+        }
+
+        setInterval(refreshSVG, 500); // Check for updates every 0.5s
+    </script>
+</body>
+</html>
