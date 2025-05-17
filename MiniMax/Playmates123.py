@@ -7,6 +7,7 @@ import webbrowser
 import os
 from MiniMax import findNextMove as Minimax
 mates = [
+
    "6k1/8/5QK1/8/8/8/8/8 w - - 0 1",  # 0: King + Queen vs King (Mate in 1)
    "7k/4B3/6KN/8/8/8/8/8 w - - 0 1",  # 1: King +  Knight and Bishop   vs king (Mate in 1)
 
