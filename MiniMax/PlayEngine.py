@@ -8,30 +8,31 @@ import os
 import sys
 
 from MiniMax import findNextMove as Minimax
-from Expectimax import findNextMove as Expecti
+from ExpectiMax import findNextMove as Expecti
 from AphaBeta import findNextMove as Alpha
+#from MiniMaxParallel import maxValue as par
 
-
-
-#from MyMove import WritenewGeneratedMoves
 
 chess_engine = r"C:\Users\justino.dasilva\Documents\Masters\Fundamentals F AI\Projects\stockfish\stockfish-windows-x86-64-avx2.exe"
 gameMoves=chess.pgn.Game()
-kingAttackedNotDefended="7k/6P1/B7/8/8/8/8/6K1 w HAha - 0 1"
 board=chess.Board()
+
+
+
+
 
 print("start",time.strftime("%H:%M:%S", time.localtime()))
 
-
-
 count=1
 def playMiniMax(depth=3):
-    MyPlay=Minimax(board,depth,captured=None,moving_piece=None,move_square=None)
+    startState=board
+    MyPlay=Minimax(board,startState,depth,captured=None,moving_piece=None,move_square=None)
     count=1
     print(f"{count}.",board.san(MyPlay),end=' ')
     board.push(MyPlay)
+
     svg_path=system=os.path.realpath('PLayEngine.html')
-    webbrowser.open('file://'+svg_path)
+    #webbrowser.open('file://'+svg_path)
     while not board.is_game_over():
         with chess.engine.SimpleEngine.popen_uci(chess_engine) as engine:
             engine.configure({"UCI_LimitStrength":True,"UCI_Elo":1320})
@@ -47,8 +48,8 @@ def playMiniMax(depth=3):
                 f.write(chess.svg.board(board))
             if board.is_checkmate():
                 return "Oponent Wins"
-
-            MyPlay=Minimax(board,depth,captured,moving_piece,stockfishMove.to_square)
+            startState=board
+            MyPlay=Minimax(board,startState,depth,captured,moving_piece,stockfishMove.to_square)
             print(f"{count}.",board.san(MyPlay),end=' ')
             board.push(MyPlay)
 
@@ -56,16 +57,14 @@ def playMiniMax(depth=3):
                 f.write(chess.svg.board(board))
             if board.is_checkmate():
                 return "Congratualtions you are vitorious"
-
-def playAlphaBeta(depth=3):
-    MyPlay=Alpha(board,depth,captured=None,moving_piece=None,move_square=None)
+#parallel
+def playpar(depth=3):
+    MyPlay=par(board,depth,captured=None,moving_piece=None,move_square=None)
     count=1
     print(f"{count}.",board.san(MyPlay),end=' ')
     board.push(MyPlay)
     svg_path=system=os.path.realpath('PLayEngine.html')
-
-
-    webbrowser.open('file://'+svg_path)
+    #webbrowser.open('file://'+svg_path)
     while not board.is_game_over():
         with chess.engine.SimpleEngine.popen_uci(chess_engine) as engine:
             engine.configure({"UCI_LimitStrength":True,"UCI_Elo":1320})
@@ -82,7 +81,43 @@ def playAlphaBeta(depth=3):
             if board.is_checkmate():
                 return "Oponent Wins"
 
-            MyPlay=Alpha(board,depth,captured,moving_piece,stockfishMove.to_square)
+            MyPlay=par(board,depth,captured,moving_piece,stockfishMove.to_square)
+            print(f"{count}.",board.san(MyPlay),end=' ')
+            board.push(MyPlay)
+
+            with open("test.svg", "w") as f:
+                f.write(chess.svg.board(board))
+            if board.is_checkmate():
+                return "Congratualtions you are vitorious"
+#parallel
+
+def playAlphaBeta(depth=3):
+    startState=board
+    MyPlay=Alpha(board,startState,depth,captured=None,moving_piece=None,move_square=None)
+    count=1
+    print(f"{count}.",board.san(MyPlay),end=' ')
+    board.push(MyPlay)
+    svg_path=system=os.path.realpath('PLayEngine.html')
+
+
+    #webbrowser.open('file://'+svg_path)
+    while not board.is_game_over():
+        with chess.engine.SimpleEngine.popen_uci(chess_engine) as engine:
+            engine.configure({"UCI_LimitStrength":True,"UCI_Elo":1320})
+            result = engine.play(board, chess.engine.Limit(time=0.1))
+            stockfishMove=result.move
+            captured=board.piece_at(stockfishMove.to_square)
+            moving_piece=board.piece_at(stockfishMove.from_square)
+            print(board.san(stockfishMove))
+            count=count+1
+            board.push(stockfishMove)
+
+            with open("test.svg", "w") as f:
+                f.write(chess.svg.board(board))
+            if board.is_checkmate():
+                return "Oponent Wins"
+
+            MyPlay=Alpha(board,startState,depth,captured=None,moving_piece=None,move_square=None)
             print(f"{count}.",board.san(MyPlay),end=' ')
             board.push(MyPlay)
 
@@ -93,14 +128,15 @@ def playAlphaBeta(depth=3):
 
 
 def playExpectimax(depth=3):
-    MyPlay=Expecti(board,depth,captured=None,moving_piece=None,move_square=None)
+    startState=board
+    MyPlay=Expecti(board,startState,depth,captured=None,moving_piece=None,move_square=None)
     count=1
     print(f"{count}.",board.san(MyPlay),end=' ')
     board.push(MyPlay)
     svg_path=system=os.path.realpath('PLayEngine.html')
 
 
-    webbrowser.open('file://'+svg_path)
+    #webbrowser.open('file://'+svg_path)
     while not board.is_game_over():
         with chess.engine.SimpleEngine.popen_uci(chess_engine) as engine:
             engine.configure({"UCI_LimitStrength":True,"UCI_Elo":1320})
@@ -109,6 +145,7 @@ def playExpectimax(depth=3):
             captured=board.piece_at(stockfishMove.to_square)
             moving_piece=board.piece_at(stockfishMove.from_square)
             print(board.san(stockfishMove))
+
             count=count+1
             board.push(stockfishMove)
 
@@ -116,8 +153,8 @@ def playExpectimax(depth=3):
                 f.write(chess.svg.board(board))
             if board.is_checkmate():
                 return "Oponent Wins"
-
-            MyPlay=Expecti(board,depth,captured,moving_piece,stockfishMove.to_square)
+            startState=board
+            MyPlay=Expecti(board,startState,depth,captured,moving_piece,stockfishMove.to_square)
             print(f"{count}.",board.san(MyPlay),end=' ')
             board.push(MyPlay)
 
@@ -126,13 +163,13 @@ def playExpectimax(depth=3):
             if board.is_checkmate():
                 return "Congratualtions you are vitorious"
 
-kingAttackedNotDefended="7k/6P1/B7/8/8/8/8/6K1 w HAha - 0 1"
+
 
 
 if __name__ == "__main__":
     agent=sys.argv[1]
     depth=int(sys.argv[2])
-    print("Usage: Agent depth")
+    print("Usage: Agent depth",agent,depth)
 
     if agent=='ExpectiMax':
         playExpectimax(depth)
@@ -140,7 +177,10 @@ if __name__ == "__main__":
         playAlphaBeta(depth)
     elif agent=='MiniMax':
         playMiniMax(depth)
+    elif agent=="par":
+        playpar(depth)
     else:
+
         print(" incorrect input Usage example: python MiniMax 3")
 
 
