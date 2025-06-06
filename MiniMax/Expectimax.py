@@ -13,7 +13,6 @@ def findNextMove(board,startState, depth,captured,moving_piece,move_square):
 def maxOfAverage(board,startState,depth,captured,moving_piece,move_square):
 
     if  depth==0 or  board.is_game_over():
-        #print("turn=White",board.turn==chess.WHITE)
         return  add_postionValue(board,startState,captured,moving_piece,move_square),None
 
     bestMove=float('-inf')
@@ -25,6 +24,7 @@ def maxOfAverage(board,startState,depth,captured,moving_piece,move_square):
         board.push(actions)
         CostToMove=averageMove(board,startState,depth-1,captured,moving_piece,actions.to_square)[0]
         board.pop()
+
         if CostToMove>bestMove:
            bestMove=CostToMove
            bestAction=actions
@@ -34,8 +34,6 @@ def maxOfAverage(board,startState,depth,captured,moving_piece,move_square):
 def averageMove(board,startState,depth,captured,moving_piece,move_square):
     if  depth ==0 or board.is_game_over():
         return  add_postionValue(board,startState,captured,moving_piece,move_square),None
-    worstMove=float('inf')
-    worstAction=None
     total=0
     for actions in board.legal_moves:
         captured = board.piece_at(actions.to_square)

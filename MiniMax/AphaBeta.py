@@ -9,43 +9,56 @@ positionValue=dict()
 
 
 def findNextMove(board,startState, depth,captured,moving_piece,move_square):
-         return maxValueAB(board,startState, depth,captured,moving_piece,move_square)[1]
+         alpha=float("-inf")
+         beta=float("inf")
+         return maxValueAB(board,startState,depth,alpha,beta,captured,moving_piece,move_square)[1]
+def maxValueAB(board,startState, depth, alpha, beta, captured, moving_piece, move_square):
+    if depth == 0 or board.is_game_over():
+        return add_postionValue(board,startState, captured, moving_piece, move_square), None
 
-def maxValueAB(board,startState, depth,captured,moving_piece,move_square):
+    bestMove = float('-inf')
+    bestAction = None
 
-    if  depth==0 or  board.is_game_over():
-        #print("turn=White",board.turn==chess.WHITE)
-        return  add_postionValue(board,startState, depth,captured,moving_piece,move_square),None
+    for action in board.legal_moves:
+        captured_piece = board.piece_at(action.to_square)
+        moving_piece = board.piece_at(action.from_square)
 
-    bestMove=float('-inf')
-    bestAction=None
-
-    for actions in board.legal_moves:
-        captured = board.piece_at(actions.to_square)
-        moving_piece=board.piece_at(actions.from_square)
-        board.push(actions)
-        CostToMove=minValue(board,startState, depth-1,captured,moving_piece,actions.to_square)[0]
+        board.push(action)
+        value, _ = minValueAB(board,startState, depth - 1, alpha, beta, captured_piece, moving_piece, action.to_square)
         board.pop()
-        if CostToMove>bestMove:
-           bestMove=CostToMove
-           bestAction=actions
 
-    return bestMove,bestAction
-    #simulating black is move
-def minValue(board,startState, depth,captured,moving_piece,move_square):
-    if  depth ==0 or board.is_game_over():
-        return  add_postionValue(board,startState, depth,captured,moving_piece,move_square),None
-    worstMove=float('inf')
-    worstAction=None
+        if value > bestMove:
+            bestMove = value
+            bestAction = action
 
-    for actions in board.legal_moves:
-        captured = board.piece_at(actions.to_square)
-        moving_piece=board.piece_at(actions.from_square)
-        board.push(actions)
-        costToMove=maxValueAB(board,board,startState, depth-1,captured,moving_piece,actions.to_square)[0]
+        alpha = max(alpha, bestMove)
+        if beta <= alpha:
+            break  # Alpha-beta pruning
+
+    return bestMove, bestAction
+
+def minValueAB(board,startState, depth, alpha, beta, captured, moving_piece, move_square):
+    if depth == 0 or board.is_game_over():
+        return add_postionValue(board,startState, captured, moving_piece, move_square), None
+
+    worstMove = float('inf')
+    worstAction = None
+
+    for action in board.legal_moves:
+        captured_piece = board.piece_at(action.to_square)
+        moving_piece = board.piece_at(action.from_square)
+
+        board.push(action)
+        #print(board.peek())
+        CostToMove, _ = maxValueAB(board,startState, depth - 1, alpha, beta, captured_piece, moving_piece, action.to_square)
         board.pop()
-        if worstMove>costToMove:
-            worstMove=costToMove
-            worstAction=actions
 
-    return worstMove,worstAction
+
+        if CostToMove < worstMove:
+            worstMove = CostToMove
+            worstAction = action
+
+        beta = min(beta, worstMove)
+        if beta <= alpha:
+            break  # Alpha-beta pruning
+    return worstMove, worstAction

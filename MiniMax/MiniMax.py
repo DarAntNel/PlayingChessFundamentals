@@ -1,7 +1,9 @@
 
 import chess
 #from EvalSnapshot import  add_postionValue
-from EvaluatePositon import add_postionValue
+#from EvaluatePositon import add_postionValue
+from EvaluatePositonModified import add_postionValue
+
 #from NewIdeamay20_1109 import add_postionValue
 #from Snpshot28_955 import add_postionValue # whins playmates easilly'''
 
