@@ -1,8 +1,11 @@
+import chess
+
 def evaluationFunction(board, agent):
     if board.is_checkmate():
         return float('-inf')
 
     number_piece_value = {i: 64 - 4 * i for i in range(17)}
+
 
     score = 0
     positions = set()
