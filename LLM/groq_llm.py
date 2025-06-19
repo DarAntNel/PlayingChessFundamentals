@@ -6,8 +6,12 @@ from IPython.display import SVG, display
 import webbrowser
 import chess.svg
 import chess.syzygy
+from dotenv import load_dotenv
 
-client = AsyncGroq(api_key=GROQ_API_KEY)
+load_dotenv()
+
+api_key = os.getenv("GROQ_API_KEY")
+client = AsyncGroq(api_key=api_key)
 
 
 SYSTEM_PROMPT = (
@@ -18,7 +22,7 @@ SYSTEM_PROMPT = (
 
 history = [{"role": "system", "content": SYSTEM_PROMPT}]
 
-async def get_move_from_model(board: chess.Board) -> str:
+async def get_move_from_groq(board: chess.Board) -> str:
     fen = board.fen()
     legal_moves = board.legal_moves
     if board.turn == chess.WHITE:
@@ -34,12 +38,17 @@ async def get_move_from_model(board: chess.Board) -> str:
     history.append({"role": "assistant", "content": move_str})
     return move_str
 
+
+
+
+
+
 async def play_full_game():
     board = chess.Board()
     print(board, "\n")
 
     while not board.is_game_over():
-        move_str = await get_move_from_model(board)
+        move_str = await get_move_from_groq(board)
         print(move_str)
         print("LLM move:", move_str)
 
@@ -58,6 +67,10 @@ async def play_full_game():
         with open("test.svg", "w") as f:
             f.write(chess.svg.board(board))
         webbrowser.open('file://' + os.path.realpath("test.svg"))
+
+        if board.can_claim_threefold_repetition():
+            print("Threefold repetition detected! Game can be ended as a draw.")
+            break
 
     print("Game over:", board.result())
 
