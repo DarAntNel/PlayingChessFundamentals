@@ -1,3 +1,27 @@
+import asyncio
+import copy
+import logging
+import os
+import os.path
+import platform
+import sys
+import tempfile
+import textwrap
+import time
+import unittest
+import io
+import chess
+import chess.gaviota
+import chess.engine
+import chess.pgn
+import chess.polyglot
+import chess.svg
+import chess.syzygy
+import chess.variant
+import webbrowser
+from Evaluation.evaluate import evaluationFunction
+from Evaluation.stockfishEvaluation import stockfishEvaluation
+from IPython.display import SVG, display
 from Evaluation.evaluate import evaluationFunction
 
 

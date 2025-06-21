@@ -155,6 +155,10 @@ async def play_full_game_llm_vs_groc(board=chess.Board()):
             f.write(chess.svg.board(board))
         webbrowser.open('file://' + os.path.realpath("test.svg"))
 
+        if board.can_claim_threefold_repetition():
+            print("Threefold repetition detected! Game can be ended as a draw.")
+            break
+
     print("Game over:", board.result())
 
 
@@ -203,7 +207,63 @@ async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 1)
         with open("test.svg", "w") as f:
             f.write(chess.svg.board(board))
         webbrowser.open('file://' + os.path.realpath("test.svg"))
+
+        if board.can_claim_threefold_repetition():
+            print("Threefold repetition detected! Game can be ended as a draw.")
+            break
     if(board.is_checkmate()):
+        rint("Check Mate:")
+    print("Game over:", board.result())
+
+async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=1):
+
+    while not board.is_game_over():
+        move_str = str(getMinimaxAction(board, depth))
+
+        try:
+            move = board.parse_san(move_str)
+            print(move)
+            if move not in board.legal_moves:
+                print("Illegal move:", move_str)
+                break
+        except Exception:
+            print("Invalid SAN:", move_str)
+            break
+
+        board.push(move)
+
+        with open("test.svg", "w") as f:
+            f.write(chess.svg.board(board))
+        webbrowser.open('file://' + os.path.realpath("test.svg"))
+
+        if board.can_claim_threefold_repetition():
+            print("Threefold repetition detected! Game can be ended as a draw.")
+            break
+
+        move_str = str(getStockFishAction(board))
+        print(move_str)
+        print("Stockfish move:", move_str)
+
+        try:
+            move = board.parse_san(move_str)
+            print(move)
+            if move not in board.legal_moves:
+                print("Illegal move:", move_str)
+                break
+        except Exception:
+            print("Invalid SAN:", move_str)
+            break
+
+        board.push(move)
+
+        with open("test.svg", "w") as f:
+            f.write(chess.svg.board(board))
+        webbrowser.open('file://' + os.path.realpath("test.svg"))
+
+        if board.can_claim_threefold_repetition():
+            print("Threefold repetition detected! Game can be ended as a draw.")
+            break
+    if (board.is_checkmate()):
         rint("Check Mate:")
     print("Game over:", board.result())
 
@@ -219,7 +279,7 @@ async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 1)
 if __name__ == "__main__":
 
     # depth = int(sys.argv[1])
-    asyncio.run(play_full_game_expectimax_vs_stockfish())
+    asyncio.run(play_full_game_minimax_vs_stockfish())
 
 
     # if sys.argv[2] and int(sys.argv[2]) == 1:
