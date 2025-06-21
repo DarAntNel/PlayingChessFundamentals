@@ -20,6 +20,7 @@ import chess.syzygy
 import chess.variant
 import webbrowser
 from Evaluation.evaluate import evaluationFunction
+from Evaluation.stockfishEvaluation import stockfishEvaluation
 from IPython.display import SVG, display
 
 
@@ -27,7 +28,8 @@ from IPython.display import SVG, display
 
 def expectimax(board, depth, agent):
     if depth == 0 or board.is_game_over() or board.is_checkmate():
-        return evaluationFunction(board, agent)
+        print(stockfishEvaluation(board, agent))
+        return stockfishEvaluation(board, agent)
 
     if board.turn == chess.WHITE:
         nextAgent = chess.BLACK
@@ -39,7 +41,8 @@ def expectimax(board, depth, agent):
     legalMoves = board.legal_moves
 
     if not legalMoves:
-        return evaluationFunction(board, agent)
+        print(stockfishEvaluation(board, agent))
+        return stockfishEvaluation(board, agent)
 
     if board.turn == chess.WHITE:
         maxEval = float('-inf')
