@@ -11,7 +11,7 @@ import concurrent.futures
 from MiniMax import findNextMove as Minimax
 from ExpectiMax import findNextMove as Expecti
 from AphaBeta import findNextMove as Alpha
-#from MiniMaxParallel import maxValue as par
+
 
 
 chess_engine = r"C:\Users\justino.dasilva\Documents\Masters\Fundamentals F AI\Projects\stockfish\stockfish-windows-x86-64-avx2.exe"
@@ -32,7 +32,7 @@ def playMiniMax(depth=3,ShowMoves=True,board=None):
     startState=board
     if ShowMoves==True:
         MyPlay=Minimax(board,startState,depth,captured=None,moving_piece=None,move_square=None,single=True)
-        
+
     else:
         MyPlay=Minimax(board,startState,depth,captured=None,moving_piece=None,move_square=None,single=False)
     count=1
