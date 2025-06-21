@@ -22,14 +22,19 @@ board=chess.Board()
 
 
 
-print("start",time.strftime("%H:%M:%S", time.localtime()))
+#print("start",time.strftime("%H:%M:%S", time.localtime()))
 
 count=1
 def playMiniMax(depth=3,ShowMoves=True,board=None):
+    MyPLay=None
     if board==None:
         board=chess.Board()
     startState=board
-    MyPlay=Minimax(board,startState,depth,captured=None,moving_piece=None,move_square=None)
+    if ShowMoves==True:
+        MyPlay=Minimax(board,startState,depth,captured=None,moving_piece=None,move_square=None,single=True)
+        
+    else:
+        MyPlay=Minimax(board,startState,depth,captured=None,moving_piece=None,move_square=None,single=False)
     count=1
 
     if ShowMoves==True:
@@ -59,7 +64,11 @@ def playMiniMax(depth=3,ShowMoves=True,board=None):
                         f.write(f"\n{result} by {outcome.termination.name}\n")
                 break
             startState=board#removeStatement after testing is finished leave at beginning only
-            MyPlay=Minimax(board,startState,depth,captured,moving_piece,stockfishMove.to_square)
+            if ShowMoves==True:
+                MyPlay=Minimax(board,startState,depth,captured,moving_piece,stockfishMove.to_square,single=True)
+
+            else:
+                MyPlay=Minimax(board,startState,depth,captured,moving_piece,stockfishMove.to_square,single=False)
             if ShowMoves==True:
                 print(f"{count}.",board.san(MyPlay),end=' ')
                 with open("test.svg", "w") as f:
@@ -236,11 +245,13 @@ if __name__ == "__main__":
         ShowMoves=False
     #playAlphaBeta(depth,ShowMoves,chess.Board())
     try:
+
         if agent=='ExpectiMax':
             with concurrent.futures.ProcessPoolExecutor(max_workers=6) as executor:
                 futures = [executor.submit(playExpectimax, depth, ShowMoves,copy.deepcopy(chess.Board())) for _ in range(NumberOfIterations)]
                 results = [f.result() for f in concurrent.futures.as_completed(futures)]
         elif agent=='AlphaBeta':
+
             with concurrent.futures.ProcessPoolExecutor(max_workers=6) as executor:
                 futures = [executor.submit(playAlphaBeta, depth, ShowMoves,copy.deepcopy(chess.Board())) for _ in range(NumberOfIterations)]
                 results = [f.result() for f in concurrent.futures.as_completed(futures)]
@@ -266,4 +277,4 @@ if __name__ == "__main__":
     print(game, file=pgn_file)
 WritenewGeneratedMoves()'''
 
-print("totalTime Taken",time.strftime("%H:%M:%S", time.localtime()))
+#print("totalTime Taken",time.strftime("%H:%M:%S", time.localtime()))
