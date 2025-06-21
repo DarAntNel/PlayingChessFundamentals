@@ -19,8 +19,7 @@ import chess.svg
 import chess.syzygy
 import chess.variant
 import webbrowser
-
-from Evaluation import evaluate
+from Evaluation.evaluate import evaluationFunction
 from IPython.display import SVG, display
 
 

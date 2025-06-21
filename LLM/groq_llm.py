@@ -36,6 +36,7 @@ async def get_move_from_groq(board: chess.Board) -> str:
     )
     move_str = resp.choices[0].message.content.strip()
     history.append({"role": "assistant", "content": move_str})
+
     return move_str
 
 
@@ -43,36 +44,4 @@ async def get_move_from_groq(board: chess.Board) -> str:
 
 
 
-async def play_full_game():
-    board = chess.Board()
-    print(board, "\n")
 
-    while not board.is_game_over():
-        move_str = await get_move_from_groq(board)
-        print(move_str)
-        print("LLM move:", move_str)
-
-        try:
-            move = board.parse_san(move_str)
-            print(move)
-            if move not in board.legal_moves:
-                print("Illegal move:", move_str)
-                break
-        except Exception:
-            print("Invalid SAN:", move_str)
-            break
-
-        board.push(move)
-
-        with open("test.svg", "w") as f:
-            f.write(chess.svg.board(board))
-        webbrowser.open('file://' + os.path.realpath("test.svg"))
-
-        if board.can_claim_threefold_repetition():
-            print("Threefold repetition detected! Game can be ended as a draw.")
-            break
-
-    print("Game over:", board.result())
-
-if __name__ == "__main__":
-    asyncio.run(play_full_game())

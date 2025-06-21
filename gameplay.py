@@ -19,9 +19,12 @@ import chess.svg
 import chess.syzygy
 import chess.variant
 import webbrowser
+from Expectimax.expectimax import expectimax
+from MiniMax.Minimax import minimax
+from Alphabeta.alphabeta import alphabeta
 
-from Evaluation import evaluate
 from IPython.display import SVG, display
+from LLM.groq_llm import get_move_from_groq
 
 fen1 = "r1bqkb1r/ppp1pp1p/5np1/3p4/1P1P4/2NB1N2/P3PPPP/R1BQKB1R w KQkq - 0 61"
 fen2 = "8/2b3p1/6P1/1kpPp3/1p1pB1b1/1P1P2B1/2PK4/8 w HAha - 0 1"
@@ -40,10 +43,9 @@ mates = [
     "6k1/8/8/3B4/8/8/6K1/8 w - - 0 1",  # 8: Bishop Mate (Mate in 3)
 ]
 
+chess_engine = r"stockfish\stockfish-windows-x86-64-avx2.exe"
 
-
-
-def getAction(board, depth):
+def getExpectimaxAction(board, depth):
     bestScore = float('-inf')
     bestAction = ''
     legalMoves = board.legal_moves
@@ -59,41 +61,172 @@ def getAction(board, depth):
             bestAction = move
     return bestAction
 
+def getMinimaxAction(board, depth):
+    bestScore = float('-inf')
+    bestAction = ''
+    legalMoves = list(board.legal_moves)
+
+    if not legalMoves:
+        return ''
+
+    for move in legalMoves:
+        successor = chess.Board(board.fen())
+        successor.push_san(str(move))
+        score = minimax(successor, depth, successor.turn)
+        if score > bestScore:
+            bestScore = score
+            bestAction = move
+    return bestAction
 
 
-board = chess.Board(mates[2])
-depth=int(sys.argv[1])
+def getAlphabetaAction(board, depth):
+    bestScore = float('-inf')
+    bestAction = None
+    alpha = float('-inf')
+    beta = float('inf')
 
-with open("test.svg", "w") as f:
-    f.write(chess.svg.board(board))
-webbrowser.open('file://' + os.path.realpath("test.svg"))
+    legalMoves = list(board.legal_moves)
 
-count = 0
+    if not legalMoves:
+        return None
 
-while count < 100:
-    action = getAction(board, depth)
-    if not action and board.is_game_over():
-            print("Game over.")
-            outcome = board.outcome()
-            if outcome:
-                if outcome.winner == chess.WHITE:
-                    print("White wins!")
-                elif outcome.winner == chess.BLACK:
-                    print("Black wins!")
-                else:
-                    print("The game is a draw.")
+    for move in legalMoves:
+        successor = board.copy()
+        successor.push(move)
+        score = alphabeta(successor, depth, successor.turn, alpha, beta)
+        if score > bestScore:
+            bestScore = score
+            bestAction = move
+        alpha = max(alpha, bestScore)
+    return bestAction
+
+def getStockFishAction(board):
+    with chess.engine.SimpleEngine.popen_uci(chess_engine) as engine:
+        engine.configure({"UCI_LimitStrength": True, "UCI_Elo": 1320})
+        result = engine.play(board, chess.engine.Limit(time=0.1))
+        return result.move
+
+
+
+async def play_full_game_llm_vs_groc(board=chess.Board()):
+
+    while not board.is_game_over():
+        move_str = await get_move_from_groq(board)
+        print(move_str)
+        print("LLM move:", move_str)
+
+        try:
+            move = board.parse_san(move_str)
+            print(move)
+            if move not in board.legal_moves:
+                print("Illegal move:", move_str)
+                break
+        except Exception:
+            print("Invalid SAN:", move_str)
             break
-    else:
-        board.push_san(str(action))
-    time.sleep(1)
 
-    with open("test.svg", "w") as f:
-        f.write(chess.svg.board(board))
-    webbrowser.open('file://' + os.path.realpath("test.svg"))
+        board.push(move)
 
-    count += 1
+        with open("test.svg", "w") as f:
+            f.write(chess.svg.board(board))
+        webbrowser.open('file://' + os.path.realpath("test.svg"))
+
+        if board.can_claim_threefold_repetition():
+            print("Threefold repetition detected! Game can be ended as a draw.")
+            break
+
+        move_str = str(getStockFishAction(board))
+        print(move_str)
+        print("Stockfish move:", move_str)
+
+        try:
+            move = board.parse_san(move_str)
+            print(move)
+            if move not in board.legal_moves:
+                print("Illegal move:", move_str)
+                break
+        except Exception:
+            print("Invalid SAN:", move_str)
+            break
+
+        board.push(move)
+
+        with open("test.svg", "w") as f:
+            f.write(chess.svg.board(board))
+        webbrowser.open('file://' + os.path.realpath("test.svg"))
+
+    print("Game over:", board.result())
 
 
+
+async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 1):
+
+    while not board.is_game_over():
+        move_str = str(getExpectimaxAction(board, depth))
+
+        try:
+            move = board.parse_san(move_str)
+            print(move)
+            if move not in board.legal_moves:
+                print("Illegal move:", move_str)
+                break
+        except Exception:
+            print("Invalid SAN:", move_str)
+            break
+
+        board.push(move)
+
+        with open("test.svg", "w") as f:
+            f.write(chess.svg.board(board))
+        webbrowser.open('file://' + os.path.realpath("test.svg"))
+
+        if board.can_claim_threefold_repetition():
+            print("Threefold repetition detected! Game can be ended as a draw.")
+            break
+
+        move_str = str(getStockFishAction(board))
+        print(move_str)
+        print("Stockfish move:", move_str)
+
+        try:
+            move = board.parse_san(move_str)
+            print(move)
+            if move not in board.legal_moves:
+                print("Illegal move:", move_str)
+                break
+        except Exception:
+            print("Invalid SAN:", move_str)
+            break
+
+        board.push(move)
+
+        with open("test.svg", "w") as f:
+            f.write(chess.svg.board(board))
+        webbrowser.open('file://' + os.path.realpath("test.svg"))
+    if(board.is_checkmate()):
+        rint("Check Mate:")
+    print("Game over:", board.result())
+
+
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+
+    # depth = int(sys.argv[1])
+    asyncio.run(play_full_game_expectimax_vs_stockfish())
+
+
+    # if sys.argv[2] and int(sys.argv[2]) == 1:
+    #     board = chess.Board(mates[2])
+    #     asyncio.run(play_full_game(board))
+    # else:
+    # asyncio.run(play_full_game())
 
 
 
