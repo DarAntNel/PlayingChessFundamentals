@@ -161,12 +161,11 @@ async def play_full_game_stockfish_vs_groc(board=chess.Board()):
         board.push(move)
         node = node.add_variation(move)
 
-        with open("test.svg", "w") as f:
-            f.write(chess.svg.board(board))
-        webbrowser.open('file://' + os.path.realpath("test.svg"))
+        # with open("test.svg", "w") as f:
+        #     f.write(chess.svg.board(board))
+        # webbrowser.open('file://' + os.path.realpath("test.svg"))
 
-        if board.can_claim_threefold_repetition():
-            print("Threefold repetition detected! Game can be ended as a draw.")
+        if board.is_game_over() or board.can_claim_threefold_repetition():
             break
 
         move_str = str(getStockFishAction(board))
@@ -190,19 +189,19 @@ async def play_full_game_stockfish_vs_groc(board=chess.Board()):
             f.write(chess.svg.board(board))
         webbrowser.open('file://' + os.path.realpath("test.svg"))
 
-        if board.can_claim_threefold_repetition():
-            print("Threefold repetition detected! Game can be ended as a draw.")
+        if board.is_game_over() or board.can_claim_threefold_repetition():
             break
 
+    result = board.result()
     print("Game over:", board.result())
-    game.headers["Result"] = board.result()
+    game.headers["Result"] = result
     with open(pgn_path, "a") as pgn_file:
         pgn_file.write(str(game) + "\n\n")
     print(f"Game saved to {pgn_path}")
 
 
 
-async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 2):
+async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth=1):
     game = chess.pgn.Game()
     game.headers["Event"] = "expectimax_vs_stockfish"
     game.headers["White"] = "Stockfish UCI_Elo 1320"
@@ -230,8 +229,7 @@ async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 2)
             f.write(chess.svg.board(board))
         webbrowser.open('file://' + os.path.realpath("test.svg"))
 
-        if board.can_claim_threefold_repetition():
-            print("Threefold repetition detected! Game can be ended as a draw.")
+        if board.is_game_over() or board.can_claim_threefold_repetition():
             break
 
         move_str = str(getExpectimaxAction(board, depth, board.turn))
@@ -255,18 +253,16 @@ async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 2)
             f.write(chess.svg.board(board))
         webbrowser.open('file://' + os.path.realpath("test.svg"))
 
-        if board.can_claim_threefold_repetition():
-            print("Threefold repetition detected! Game can be ended as a draw.")
+        if board.is_game_over() or board.can_claim_threefold_repetition():
             break
-    if(board.is_checkmate()):
-        print("Check Mate:")
+    result = board.result()
     print("Game over:", board.result())
-    game.headers["Result"] = board.result()
+    game.headers["Result"] = result
     with open(pgn_path, "a") as pgn_file:
         pgn_file.write(str(game) + "\n\n")
     print(f"Game saved to {pgn_path}")
 
-async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=2):
+async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=1):
     game = chess.pgn.Game()
     game.headers["Event"] = "minimax_vs_stockfish"
     game.headers["White"] = "Minimax"
@@ -294,8 +290,7 @@ async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=2):
             f.write(chess.svg.board(board))
         webbrowser.open('file://' + os.path.realpath("test.svg"))
 
-        if board.can_claim_threefold_repetition():
-            print("Threefold repetition detected! Game can be ended as a draw.")
+        if board.is_game_over() or board.can_claim_threefold_repetition():
             break
 
         move_str = str(getStockFishAction(board))
@@ -319,13 +314,11 @@ async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=2):
             f.write(chess.svg.board(board))
         webbrowser.open('file://' + os.path.realpath("test.svg"))
 
-        if board.can_claim_threefold_repetition():
-            print("Threefold repetition detected! Game can be ended as a draw.")
+        if board.is_game_over() or board.can_claim_threefold_repetition():
             break
-    if (board.is_checkmate()):
-        print("Check Mate:")
+    result = board.result()
     print("Game over:", board.result())
-    game.headers["Result"] = board.result()
+    game.headers["Result"] = result
     with open(pgn_path, "a") as pgn_file:
         pgn_file.write(str(game) + "\n\n")
     print(f"Game saved to {pgn_path}")
@@ -333,7 +326,7 @@ async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=2):
 
 
 
-async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=2):
+async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=1):
     game = chess.pgn.Game()
     game.headers["Event"] = "minimax_vs_expectimax"
     game.headers["White"] = "Minimax"
@@ -363,7 +356,6 @@ async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=2):
         webbrowser.open('file://' + os.path.realpath("test.svg"))
 
         if board.can_claim_threefold_repetition():
-            print("Threefold repetition detected! Game can be ended as a draw.")
             break
 
         move_str = str(getExpectimaxAction(board, depth, board.turn))
@@ -387,13 +379,13 @@ async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=2):
             f.write(chess.svg.board(board))
         webbrowser.open('file://' + os.path.realpath("test.svg"))
 
-        if board.can_claim_threefold_repetition():
-            print("Threefold repetition detected! Game can be ended as a draw.")
+        if board.is_game_over() or board.can_claim_threefold_repetition():
             break
-    if (board.is_checkmate()):
-        print("Check Mate:")
+
+
+    result = board.result()
     print("Game over:", board.result())
-    game.headers["Result"] = board.result()
+    game.headers["Result"] = result
     with open(pgn_path, "a") as pgn_file:
         pgn_file.write(str(game) + "\n\n")
     print(f"Game saved to {pgn_path}")
@@ -403,12 +395,13 @@ async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=2):
 
 
 if __name__ == "__main__":
-
-    # depth = int(sys.argv[1])
-    # asyncio.run(play_full_game_minimax_vs_stockfish())
-    # asyncio.run(play_full_game_minimax_vs_expectimax())
-    asyncio.run(play_full_game_stockfish_vs_groc())
-    # asyncio.run(play_full_game_expectimax_vs_stockfish())
+    count = 0
+    while count < 15:
+        asyncio.run(play_full_game_minimax_vs_stockfish())
+        asyncio.run(play_full_game_minimax_vs_expectimax())
+        # asyncio.run(play_full_game_stockfish_vs_groc())
+        asyncio.run(play_full_game_expectimax_vs_stockfish())
+        count += 1
 
 
     # if sys.argv[2] and int(sys.argv[2]) == 1:

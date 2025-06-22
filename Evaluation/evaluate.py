@@ -32,25 +32,29 @@ def get_piece_rank(board, square):
     piece = board.piece_at(square)
     if not piece:
         return 0
+
     is_white = piece.color
     piece_type = piece.symbol()
 
+    rank = chess.square_rank(square)
+    relative_rank = rank if is_white else 7 - rank  # 0 (home rank) to 7 (last rank)
+
     if piece_type in ('P', 'p'):
-        rank = chess.square_rank(square) + 1 if is_white else 8 - chess.square_rank(square)
+        bonus = (relative_rank + 1)  # 1-based rank
         if (is_white and is_white_passer(board, square)) or (not is_white and is_black_passer(board, square)):
-            return rank ** 2
-        return rank
+            return bonus ** 2
+        return bonus
+
 
     if piece_type in ('K', 'k'):
         return 0
 
-    board.turn = is_white
-
     b2 = board.copy(stack=False)
     b2.turn = is_white
+    mobility = sum(1 for m in b2.legal_moves if m.from_square == square)
 
-    mobility = len([m for m in b2.legal_moves if m.from_square == square])
     return mobility
+
 
 
 def evaluate_material_and_position(board):

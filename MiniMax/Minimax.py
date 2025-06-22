@@ -90,7 +90,7 @@ def minimax(board, depth, agent,
             to_sq = move.to_square
 
             board.push(move)
-            val = minimax(board, nextDepth, agent,
+            val = minimax(board, depth, agent,
                           start_board=prev,
                           captured=cap,
                           moving_piece=mover,

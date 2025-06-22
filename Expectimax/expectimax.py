@@ -28,7 +28,7 @@ from IPython.display import SVG, display
 
 def expectimax(board, depth, agent,
                start_board=None, captured=None, moving_piece=None, move_square=None):
-    # Leaf?
+
     if depth == 0 or board.is_game_over() or board.is_checkmate():
         return evaluationFunction(
             board, agent,
@@ -90,7 +90,7 @@ def expectimax(board, depth, agent,
             to_sq = move.to_square
 
             board.push(move)
-            val = expectimax(board, nextDepth, agent,
+            val = expectimax(board, depth, agent,
                              start_board=prev,
                              captured=cap,
                              moving_piece=mover,

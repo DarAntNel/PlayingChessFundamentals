@@ -34,7 +34,7 @@ def alphabeta(board, depth, agent, alpha=float('-inf'), beta=float('inf')):
     else:
         nextAgent = chess.WHITE
 
-    nextDepth = depth - 1 if board.turn == chess.WHITE else depth
+    nextDepth = depth - 1
 
     legalMoves = list(board.legal_moves)
 
@@ -57,7 +57,7 @@ def alphabeta(board, depth, agent, alpha=float('-inf'), beta=float('inf')):
         for move in legalMoves:
             successor = board.copy()
             successor.push(move)
-            evalScore = minimax(successor, nextDepth, nextAgent, alpha, beta)
+            evalScore = minimax(successor, depth, nextAgent, alpha, beta)
             minEval = min(minEval, evalScore)
             beta = min(beta, evalScore)
             if beta <= alpha:
