@@ -195,7 +195,7 @@ async def play_full_game_stockfish_vs_groc(board=chess.Board()):
             break
 
     print("Game over:", board.result())
-    game.headers[f"Result {board.result()}"]
+    game.headers["Result"] = board.result()
     with open(pgn_path, "a") as pgn_file:
         pgn_file.write(str(game) + "\n\n")
     print(f"Game saved to {pgn_path}")
@@ -261,7 +261,7 @@ async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 2)
     if(board.is_checkmate()):
         print("Check Mate:")
     print("Game over:", board.result())
-    game.headers[f"Result {board.result()}"]
+    game.headers["Result"] = board.result()
     with open(pgn_path, "a") as pgn_file:
         pgn_file.write(str(game) + "\n\n")
     print(f"Game saved to {pgn_path}")
@@ -325,7 +325,7 @@ async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=2):
     if (board.is_checkmate()):
         print("Check Mate:")
     print("Game over:", board.result())
-    game.headers[f"Result {board.result()}"]
+    game.headers["Result"] = board.result()
     with open(pgn_path, "a") as pgn_file:
         pgn_file.write(str(game) + "\n\n")
     print(f"Game saved to {pgn_path}")
@@ -393,7 +393,7 @@ async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=2):
     if (board.is_checkmate()):
         print("Check Mate:")
     print("Game over:", board.result())
-    game.headers[f"Result {board.result()}"]
+    game.headers["Result"] = board.result()
     with open(pgn_path, "a") as pgn_file:
         pgn_file.write(str(game) + "\n\n")
     print(f"Game saved to {pgn_path}")
