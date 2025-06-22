@@ -26,41 +26,79 @@ from IPython.display import SVG, display
 
 
 
-def expectimax(board, depth, agent):
+def expectimax(board, depth, agent,
+               start_board=None, captured=None, moving_piece=None, move_square=None):
+    # Leaf?
     if depth == 0 or board.is_game_over() or board.is_checkmate():
-        print(stockfishEvaluation(board, agent))
-        return stockfishEvaluation(board, agent)
+        return evaluationFunction(
+            board, agent,
+            start_board=start_board,
+            captured=captured,
+            moving_piece=moving_piece,
+            move_square=move_square,
+            use_detailed=True
+        )
 
+    # Whose turn next?
     if board.turn == chess.WHITE:
         nextAgent = chess.BLACK
     else:
         nextAgent = chess.WHITE
 
-    nextDepth = depth - 1 if board.turn == chess.WHITE else depth
+    # Always consume one ply
+    nextDepth = depth - 1
 
-    legalMoves = board.legal_moves
-
+    legalMoves = list(board.legal_moves)
     if not legalMoves:
-        print(stockfishEvaluation(board, agent))
-        return stockfishEvaluation(board, agent)
+        return evaluationFunction(
+            board, agent,
+            start_board=start_board,
+            captured=captured,
+            moving_piece=moving_piece,
+            move_square=move_square,
+            use_detailed=True
+        )
 
-    if board.turn == chess.WHITE:
+    if board.turn == agent:
         maxEval = float('-inf')
         for move in legalMoves:
-            sucessor = chess.Board(board.fen())
-            sucessor.push_san(str(move))
-            evalScore = expectimax(sucessor, nextDepth, nextAgent)
-            maxEval = max(maxEval, evalScore)
+            prev = board.copy()
+            mover = board.piece_at(move.from_square).symbol()
+            cap = None
+            if board.piece_at(move.to_square):
+                cap = board.piece_at(move.to_square).symbol()
+            to_sq = move.to_square
+
+            board.push(move)
+            val = expectimax(board, nextDepth, agent,
+                             start_board=prev,
+                             captured=cap,
+                             moving_piece=mover,
+                             move_square=to_sq)
+            board.pop()
+
+            maxEval = max(maxEval, val)
         return maxEval
     else:
-        total = 0
-        probability = 1 / legalMoves.count()
+        total = 0.0
         for move in legalMoves:
-            sucessor = chess.Board(board.fen())
-            sucessor.push_san(str(move))
-            evalScore = expectimax(sucessor, nextDepth, nextAgent)
-            total += probability * evalScore
-        return total
+            prev = board.copy()
+            mover = board.piece_at(move.from_square).symbol()
+            cap = None
+            if board.piece_at(move.to_square):
+                cap = board.piece_at(move.to_square).symbol()
+            to_sq = move.to_square
+
+            board.push(move)
+            val = expectimax(board, nextDepth, agent,
+                             start_board=prev,
+                             captured=cap,
+                             moving_piece=mover,
+                             move_square=to_sq)
+            board.pop()
+
+            total += val
+        return total / len(legalMoves)
 
 
 

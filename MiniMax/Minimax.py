@@ -24,35 +24,78 @@ from Evaluation.stockfishEvaluation import stockfishEvaluation
 from IPython.display import SVG, display
 from Evaluation.evaluate import evaluationFunction
 
-def minimax(board, depth, agent):
+def minimax(board, depth, agent,
+            start_board=None, captured=None, moving_piece=None, move_square=None):
+    # Leaf?
     if depth == 0 or board.is_game_over() or board.is_checkmate():
-        return evaluationFunction(board, agent)
+        return evaluationFunction(
+            board, agent,
+            start_board=start_board,
+            captured=captured,
+            moving_piece=moving_piece,
+            move_square=move_square,
+            use_detailed=True
+        )
 
+    # Whose turn next?
     if board.turn == chess.WHITE:
         nextAgent = chess.BLACK
     else:
         nextAgent = chess.WHITE
 
-    nextDepth = depth - 1 if board.turn == chess.WHITE else depth
+    # Always consume one ply
+    nextDepth = depth - 1
 
     legalMoves = list(board.legal_moves)
-
     if not legalMoves:
-        return evaluationFunction(board, agent)
+        return evaluationFunction(
+            board, agent,
+            start_board=start_board,
+            captured=captured,
+            moving_piece=moving_piece,
+            move_square=move_square,
+            use_detailed=True
+        )
 
-    if board.turn == chess.WHITE:
+    if board.turn == agent:
         maxEval = float('-inf')
         for move in legalMoves:
-            successor = chess.Board(board.fen())
-            successor.push_san(str(move))
-            evalScore = minimax(successor, nextDepth, nextAgent)
-            maxEval = max(maxEval, evalScore)
+            # record context
+            prev = board.copy()
+            mover = board.piece_at(move.from_square).symbol()
+            cap = None
+            if board.piece_at(move.to_square):
+                cap = board.piece_at(move.to_square).symbol()
+            to_sq = move.to_square
+
+            # recurse
+            board.push(move)
+            val = minimax(board, nextDepth, agent,
+                          start_board=prev,
+                          captured=cap,
+                          moving_piece=mover,
+                          move_square=to_sq)
+            board.pop()
+
+            maxEval = max(maxEval, val)
         return maxEval
     else:
         minEval = float('inf')
         for move in legalMoves:
-            successor = chess.Board(board.fen())
-            successor.push_san(str(move))
-            evalScore = minimax(successor, nextDepth, nextAgent)
-            minEval = min(minEval, evalScore)
+            prev = board.copy()
+            mover = board.piece_at(move.from_square).symbol()
+            cap = None
+            if board.piece_at(move.to_square):
+                cap = board.piece_at(move.to_square).symbol()
+            to_sq = move.to_square
+
+            board.push(move)
+            val = minimax(board, nextDepth, agent,
+                          start_board=prev,
+                          captured=cap,
+                          moving_piece=mover,
+                          move_square=to_sq)
+            board.pop()
+
+            minEval = min(minEval, val)
         return minEval

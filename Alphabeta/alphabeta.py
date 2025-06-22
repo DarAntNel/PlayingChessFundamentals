@@ -41,7 +41,7 @@ def alphabeta(board, depth, agent, alpha=float('-inf'), beta=float('inf')):
     if not legalMoves:
         return evaluationFunction(board, agent)
 
-    if board.turn == chess.WHITE:
+    if board.turn == agent:
         maxEval = float('-inf')
         for move in legalMoves:
             successor = board.copy()
