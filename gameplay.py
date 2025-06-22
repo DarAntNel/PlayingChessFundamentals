@@ -62,7 +62,7 @@ def getExpectimaxAction(board, depth, agent):
         to_sq = move.to_square
 
         board.push(move)
-        score = expectimax(board, depth-1, agent,
+        score = expectimax(board, depth, agent,
                            start_board=prev,
                            captured=cap,
                            moving_piece=mover,
@@ -91,7 +91,7 @@ def getMinimaxAction(board, depth, agent):
         to_sq = move.to_square
 
         board.push(move)
-        score = minimax(board, depth-1, agent,
+        score = minimax(board, depth, agent,
                         start_board=prev,
                         captured=cap,
                         moving_piece=mover,
@@ -119,7 +119,7 @@ def getAlphabetaAction(board, depth, agent):
     for move in legalMoves:
         successor = board.copy()
         successor.push(move)
-        score = alphabeta(successor, depth, agent, alpha, beta)
+        score = alphabeta(successor, depth -1, agent, alpha, beta)
         if score > bestScore:
             bestScore = score
             bestAction = move
@@ -135,7 +135,14 @@ def getStockFishAction(board):
 
 
 async def play_full_game_stockfish_vs_groc(board=chess.Board()):
+    game = chess.pgn.Game()
 
+    game.headers["Event"] = "stockfish_vs_groc"
+    game.headers["White"] = "Groc"
+    game.headers["Black"] = "Stockfish UCI_Elo 1320 "
+
+    node = game
+    pgn_path = "stockfish_vs_groc.pgn"
     while not board.is_game_over():
         move_str = await get_move_from_groq(board)
         print(move_str)
@@ -152,6 +159,7 @@ async def play_full_game_stockfish_vs_groc(board=chess.Board()):
             break
 
         board.push(move)
+        node = node.add_variation(move)
 
         with open("test.svg", "w") as f:
             f.write(chess.svg.board(board))
@@ -176,6 +184,7 @@ async def play_full_game_stockfish_vs_groc(board=chess.Board()):
             break
 
         board.push(move)
+        node = node.add_variation(move)
 
         with open("test.svg", "w") as f:
             f.write(chess.svg.board(board))
@@ -186,11 +195,20 @@ async def play_full_game_stockfish_vs_groc(board=chess.Board()):
             break
 
     print("Game over:", board.result())
+    game.headers[f"Result {board.result()}"]
+    with open(pgn_path, "a") as pgn_file:
+        pgn_file.write(str(game) + "\n\n")
+    print(f"Game saved to {pgn_path}")
 
 
 
 async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 2):
-
+    game = chess.pgn.Game()
+    game.headers["Event"] = "expectimax_vs_stockfish"
+    game.headers["White"] = "Stockfish UCI_Elo 1320"
+    game.headers["Black"] = "Expectimax"
+    node = game
+    pgn_path = "expectimax_vs_stockfish.pgn"
     while not board.is_game_over():
         move_str = str(getStockFishAction(board))
         print(move_str)
@@ -206,6 +224,7 @@ async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 2)
             break
 
         board.push(move)
+        node = node.add_variation(move)
 
         with open("test.svg", "w") as f:
             f.write(chess.svg.board(board))
@@ -230,6 +249,7 @@ async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 2)
             break
 
         board.push(move)
+        node = node.add_variation(move)
 
         with open("test.svg", "w") as f:
             f.write(chess.svg.board(board))
@@ -241,11 +261,18 @@ async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth = 2)
     if(board.is_checkmate()):
         print("Check Mate:")
     print("Game over:", board.result())
+    game.headers[f"Result {board.result()}"]
+    with open(pgn_path, "a") as pgn_file:
+        pgn_file.write(str(game) + "\n\n")
+    print(f"Game saved to {pgn_path}")
 
-async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=1):
+async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=2):
     game = chess.pgn.Game()
+    game.headers["Event"] = "minimax_vs_stockfish"
+    game.headers["White"] = "Minimax"
+    game.headers["Black"] = "Stockfish UCI_Elo 1320"
     node = game
-    pgn_path = "game_log.pgn"
+    pgn_path = "minimax_vs_stockfish.pgn"
 
     while not board.is_game_over():
         move_str = str(getMinimaxAction(board, depth, board.turn))
@@ -298,7 +325,7 @@ async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=1):
     if (board.is_checkmate()):
         print("Check Mate:")
     print("Game over:", board.result())
-
+    game.headers[f"Result {board.result()}"]
     with open(pgn_path, "a") as pgn_file:
         pgn_file.write(str(game) + "\n\n")
     print(f"Game saved to {pgn_path}")
@@ -308,8 +335,11 @@ async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=1):
 
 async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=2):
     game = chess.pgn.Game()
+    game.headers["Event"] = "minimax_vs_expectimax"
+    game.headers["White"] = "Minimax"
+    game.headers["Black"] = "Expectimax"
     node = game
-    pgn_path = "game_log.pgn"
+    pgn_path = "minimax_vs_expectimax.pgn"
 
     while not board.is_game_over():
         move_str = str(getMinimaxAction(board, depth, board.turn))
@@ -363,7 +393,7 @@ async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=2):
     if (board.is_checkmate()):
         print("Check Mate:")
     print("Game over:", board.result())
-
+    game.headers[f"Result {board.result()}"]
     with open(pgn_path, "a") as pgn_file:
         pgn_file.write(str(game) + "\n\n")
     print(f"Game saved to {pgn_path}")
@@ -375,9 +405,9 @@ async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=2):
 if __name__ == "__main__":
 
     # depth = int(sys.argv[1])
-    asyncio.run(play_full_game_minimax_vs_stockfish())
+    # asyncio.run(play_full_game_minimax_vs_stockfish())
     # asyncio.run(play_full_game_minimax_vs_expectimax())
-    # asyncio.run(play_full_game_stockfish_vs_groc())
+    asyncio.run(play_full_game_stockfish_vs_groc())
     # asyncio.run(play_full_game_expectimax_vs_stockfish())
 
 
