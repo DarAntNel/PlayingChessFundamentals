@@ -1,6 +1,8 @@
 # PlayingChessFundamentals
 PlayingChessFundamentals
 
+Please note some of this projects findings were recorded using the changes on the Minimax branch of this repository, that should also be taken into consideration. 
+
 
 In this project we make use of the python-chess project to simulate
 chess gameplay using our newly implemented search and decision making algorithms
