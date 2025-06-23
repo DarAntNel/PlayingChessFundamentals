@@ -31,16 +31,11 @@ fen2 = "8/2b3p1/6P1/1kpPp3/1p1pB1b1/1P1P2B1/2PK4/8 w HAha - 0 1"
 fen3 = "rnbqkbnr/pppp1ppp/4p3/6N1/8/8/PPPPPPPP/RNBQKB1R w KQkq - 0 1"
 
 mates = [
-    "6k1/5Q2/8/8/8/8/8/6K1 w - - 0 1",
-    "6k1/8/8/8/8/8/5Q2/6K1 w - - 0 1",  # 0: King + Queen vs King (Mate in 1)
-    "6k1/8/8/8/8/8/5R2/6K1 w - - 0 1",  # 1: King + Rook vs King (Mate in 1)
-    "6k1/6P1/8/8/6B1/8/8/6K1 w - - 0 1",  # 2: King + Bishop + Pawn (Mate in 1)
-    "6k1/8/8/8/8/5Q2/8/6K1 w - - 0 1",  # 3: King + Queen vs King (Mate in 2)
-    "6k1/8/8/8/8/5R2/8/6K1 w - - 0 1",  # 4: King + Rook vs King (Mate in 2)
-    "6k1/5P2/7K/8/8/5n2/8/8 w - - 0 1",  # 5: Knight + Pawn (Mate in 2)
-    "6k1/8/8/8/8/4Q3/8/6K1 w - - 0 1",  # 6: King + Queen vs King (Mate in 3)
-    "7k/8/8/8/8/8/5R2/6K1 w - - 0 1",  # 7: King + Rook vs King (Mate in 3)
-    "6k1/8/8/3B4/8/8/6K1/8 w - - 0 1",  # 8: Bishop Mate (Mate in 3)
+    "6k1/8/5QK1/8/8/8/8/8 w - - 0 1",  # 0: King + Queen vs King (Mate in 1)
+    "7k/4B3/6KN/8/8/8/8/8 w - - 0 1",  # 1: King +  Knight and Bishop   vs king (Mate in 1)
+    "1k6/2R1N3/3K4/8/8/8/8/8 w - - 0 1",  # 3: King + knight and Rook vs King (Mate in 2)
+    "1k6/8/2RKR3/8/8/8/8/8 w - - 0 1",  # 4: King + 2 Rook vs King (Mate in 2)
+    "k7/1p6/1KP5/2N5/8/8/8/8 w - - 0 1"  # ,# 5 : Knight + Pawn (Mate in 2)
 ]
 
 chess_engine = r"stockfish\stockfish-windows-x86-64-avx2.exe"
@@ -136,7 +131,8 @@ def getStockFishAction(board):
 
 async def play_full_game_stockfish_vs_groc(board=chess.Board()):
     game = chess.pgn.Game()
-
+    if board.fen() != chess.STARTING_FEN:
+        game.setup(board)
     game.headers["Event"] = "stockfish_vs_groc"
     game.headers["White"] = "Groc"
     game.headers["Black"] = "Stockfish UCI_Elo 1320 "
@@ -161,9 +157,9 @@ async def play_full_game_stockfish_vs_groc(board=chess.Board()):
         board.push(move)
         node = node.add_variation(move)
 
-        # with open("test.svg", "w") as f:
-        #     f.write(chess.svg.board(board))
-        # webbrowser.open('file://' + os.path.realpath("test.svg"))
+        with open("test.svg", "w") as f:
+            f.write(chess.svg.board(board))
+        webbrowser.open('file://' + os.path.realpath("test.svg"))
 
         if board.is_game_over() or board.can_claim_threefold_repetition():
             break
@@ -203,6 +199,8 @@ async def play_full_game_stockfish_vs_groc(board=chess.Board()):
 
 async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth=1):
     game = chess.pgn.Game()
+    if board.fen() != chess.STARTING_FEN:
+        game.setup(board)
     game.headers["Event"] = "expectimax_vs_stockfish"
     game.headers["White"] = "Stockfish UCI_Elo 1320"
     game.headers["Black"] = "Expectimax"
@@ -264,6 +262,8 @@ async def play_full_game_expectimax_vs_stockfish(board=chess.Board(), depth=1):
 
 async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=1):
     game = chess.pgn.Game()
+    if board.fen() != chess.STARTING_FEN:
+        game.setup(board)
     game.headers["Event"] = "minimax_vs_stockfish"
     game.headers["White"] = "Minimax"
     game.headers["Black"] = "Stockfish UCI_Elo 1320"
@@ -328,6 +328,8 @@ async def play_full_game_minimax_vs_stockfish(board=chess.Board(), depth=1):
 
 async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=1):
     game = chess.pgn.Game()
+    if board.fen() != chess.STARTING_FEN:
+        game.setup(board)
     game.headers["Event"] = "minimax_vs_expectimax"
     game.headers["White"] = "Minimax"
     game.headers["Black"] = "Expectimax"
@@ -395,20 +397,25 @@ async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=1):
 
 
 if __name__ == "__main__":
+
+    asyncio.run(play_full_game_stockfish_vs_groc())
+
+    for fen in mates:
+        asyncio.run(play_full_game_minimax_vs_stockfish(chess.Board(fen)))
+        asyncio.run(play_full_game_expectimax_vs_stockfish(chess.Board(fen)))
+
+
     count = 0
-    while count < 15:
+    while count < 4:
         asyncio.run(play_full_game_minimax_vs_stockfish())
         asyncio.run(play_full_game_minimax_vs_expectimax())
-        # asyncio.run(play_full_game_stockfish_vs_groc())
         asyncio.run(play_full_game_expectimax_vs_stockfish())
         count += 1
 
 
-    # if sys.argv[2] and int(sys.argv[2]) == 1:
-    #     board = chess.Board(mates[2])
-    #     asyncio.run(play_full_game(board))
-    # else:
-    # asyncio.run(play_full_game())
+
+
+
 
 
 

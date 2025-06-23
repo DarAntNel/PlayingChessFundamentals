@@ -1,0 +1,193 @@
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "*"]
+
+1. Nc3 d5 2. a4 Nf6 3. Ra2 Nc6 4. Ra3 e5 5. Ra1 d4 6. Nd5 Nxd5 7. h3 Be6 8. h4 Qd7 9. c4 Ndb4 10. b3 a5 11. Ba3 Bf5 12. e4 Be6 13. c5 h6 14. Bb5 d3 15. Rb1 Qd4 16. Bc4 Be7 17. Bd5 Rf8 18. Qc1 h5 19. Nf3 Qxd5 20. Ng5 Qd7 21. Nxe6 Rg8 22. Nxc7+ Qxc7 23. g4 Qd7 24. Rg1 Nc2+ 25. Kf1 N2d4 26. Bb2 g6 27. Rg3 hxg4 28. Rxd3 Bd8 29. Kg2 Be7 30. Qf1 Rh8 31. Rc1 f5 32. h5 gxh5 33. Re1 Ra6 34. Rxd4 Nxd4 35. Qd3 Nf3 36. Bxe5 Rah6 37. Qxd7+ Kxd7 38. c6+ Rxc6 39. Rc1 Nh4+ 40. Kg3 f4+ 41. Kxf4 Ng6+ 42. Ke3 Rxc1 43. Bxh8 Bc5+ 44. Bd4 Bxd4+ 45. Kxd4 Kc6 46. d3 g3 47. e5 Re1 48. b4 Ra1 49. fxg3 Kc7 50. g4 h4 51. e6 b6 52. e7 Nxe7 53. Kc4 Kd7 54. Kb5 Re1 55. Kxb6 Rg1 56. Kb5 Rb1 57. g5 axb4 58. a5 Nd5 59. g6 b3 60. g7 Nf6 61. a6 Kc7 62. a7 Kb7 63. d4 Rg1 64. a8=Q+ Kxa8 65. d5 Rxg7 66. d6 Rb7+ 67. Kc5 Nd7+ 68. Kd5 Rb8 69. Ke6 Rb7 70. Ke7 b2 71. Kd8 Ne5 72. Kc8 b1=N 73. d7 Rb8+ 74. Kc7 Nxd7 75. Kxd7 Rb2 76. Ke8 Rb4 77. Kf8 Kb8 78. Kg8 Re4 79. Kh8 Rc4 80. Kh7 Re4 81. Kh6 Rc4 82. Kh5 Nc3 83. Kh6 h3 84. Kh5 Nd1 85. Kh6 Rc2 86. Kh5 Ne3 87. Kh4 Nf1 88. Kh5 h2 89. Kh4 h1=Q+ 90. Kg5 Qg1+ 91. Kf6 Qb6+ 92. Ke5 Re2+ 93. Kd5 Ne3+ 94. Ke4 Nf5+ 95. Kxf5 Re8 96. Kf4 Qa6 97. Kg5 Kc7 98. Kf5 Kb6 99. Kg6 Kc5+ 100. Kf7 Rb8 101. Kg7 Rb4 102. Kh8 Qb7 103. Kg8 Qb5 104. Kh8 Qe8+ 105. Kh7 Qf7+ 106. Kh6 Qb3 107. Kg5 Qg8+ 108. Kf5 Qd5+ 109. Kg6 Qg8+ 110. Kf5 Qd5+ 111. Kg6 Rb6+ 112. Kh7 Qh5+ 113. Kg8 Qg6+ 114. Kf8 Qc2 115. Ke7 Qb3 116. Kd8 Rc6 117. Ke8 Qa4 118. Kd7 Kb4 119. Ke8 Rb6+ 120. Kd8 Rb5 121. Kc7 Qd1 122. Kc8 Qb3 123. Kd8 Qa4 124. Kc7 Qb3 125. Kd8 *
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "*"]
+
+1. Nc3 d5 2. a4 d4 3. Rb1 dxc3 4. dxc3 e6 5. Qxd8+ Kxd8 6. Bg5+ Ne7 7. Rd1+ Ke8 8. Rd8+ Kxd8 9. Bh6 gxh6 10. h4 Nd7 11. g4 Nf5 12. gxf5 Ke7 13. fxe6 fxe6 14. Bg2 a6 15. Rh3 h5 16. Bf3 Ne5 17. Rg3 Rb8 18. Rg5 Nf7 19. Rg3 Kd7 20. c4 Be7 21. Kd2 Bd6 22. Rg7 Ke7 23. Bxh5 Kd7 24. Kd3 Be7 25. Rxf7 b6 26. Rxe7+ Kxe7 27. Bg4 Rd8+ 28. Ke3 Re8 29. Bh3 c5 30. b3 h5 31. Bg4 b5 32. cxb5 hxg4 33. h5 e5 34. h6 axb5 35. h7 Kd6 36. c4 Bd7 37. b4 Ra8 38. bxc5+ Ke7 39. c6 Bf5 40. c7 Rxa4 41. c8=N+ Rxc8 42. h8=Q Rxh8 43. cxb5 Re8 44. b6 Kd8 45. Kd2 Be6 46. Kc3 Rg8 47. b7 Ke7 48. e3 Rc8+ 49. bxc8=Q Bxc8 50. Kb3 Ra6 51. Kb4 Kd7 52. Kb5 Rd6 53. Kc5 Ra6 54. Kb5 Rf6 55. Kc5 Rg6 56. Kd5 Rg5 57. Kc4 Rg6 58. Kd5 Ra6 59. Ke4 Rb6 60. Kxe5 Kd8 61. Kd4 Re6 62. Kd5 Re8 63. Kd4 Re6 64. Kd5 Re7 65. Kd6 Rh7 66. Ke5 Rh8 67. Kd4 Bb7 68. e4 Bc8 69. Ke3 Ba6 70. Kd2 Bf1 71. Ke1 Ba6 72. Kd2 Ke8 73. Ke3 Bf1 74. Kd2 Rh7 75. Ke3 Rh3+ 76. f3 Rh1 77. Kf2 Ba6 78. Kg2 Rh5 79. fxg4 Ra5 80. Nf3 Ra2+ 81. Kg3 Ra1 82. g5 Kd7 83. g6 Ke7 84. g7 Bc4 85. Nd4 Ra8 86. Nc6+ Ke6 87. Nd4+ Ke5 88. Nc6+ Kf6 89. Na5 Bg8 90. e5+ Kf7 91. e6+ Kf6 92. Kh4 Rxa5 93. Kg3 Rg5+ 94. Kf4 Rg2 95. Kf3 Rg6 96. Kf4 Rg5 97. e7 Rf5+ 98. Kg4 Re5 99. e8=Q Rxe8 100. Kg3 Rd8 101. Kf3 Re8 102. Kg3 Bd5 103. g8=Q Bxg8 104. Kf3 Rd8 105. Kg4 Be6+ 106. Kf4 Bg4 107. Kxg4 Kf7 108. Kg5 Kg8 109. Kf6 Re8 110. Kg6 Rd8 111. Kf6 Re8 112. Kg6 Rb8 113. Kf6 *
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "*"]
+
+1. Nc3 e5 2. h4 Bc5 3. Na4 Bd6 4. Nc5 Bxc5 5. d4 Bb4+ 6. c3 Ba5 7. Bg5 Bxc3+ 8. bxc3 f6 9. f4 d5 10. dxe5 fxg5 11. hxg5 c6 12. Rxh7 Rxh7 13. Kf2 Rh8 14. c4 Qe7 15. a3 Nd7 16. e6 Qxe6 17. cxd5 Qxd5 18. Qxd5 cxd5 19. Rc1 Kf7 20. Rc7 Ke8 21. Nh3 Kd8 22. Rc2 Ne7 23. Kf3 d4 24. Ke4 d3 25. Kxd3 Nf5 26. Kd2 a6 27. g4 Nh4 28. f5 a5 29. f6 g6 30. Nf4 Nf8 31. Rxc8+ Kxc8 32. f7 Nd7 33. Nxg6 Kc7 34. Kc2 Nxg6 35. Kb2 Rh4 36. Kb1 a4 37. Kb2 Ngf8 38. Bg2 Ne5 39. g6 Nexg6 40. Bf3 Rc8 41. Kb1 Rh3 42. Kb2 Rh2 43. Kb1 Rh6 44. g5 Rh3 45. Kb2 Rh2 46. Bh5 Ra8 47. Bxg6 Nxg6 48. Kc3 Rh5 49. Kb4 Nf8 50. g6 Rg5 51. g7 Rg4+ 52. e4 Ne6 53. f8=Q Rxe4+ 54. Kc3 Nxf8 55. Kd3 Ne6 56. g8=Q Nc5+ 57. Kc3 Re3+ 58. Kd4 Ne6+ 59. Kxe3 Rxg8 60. Ke4 Kd8 61. Ke5 Nc7 62. Kf5 Rf8+ 63. Kg5 Rf3 64. Kh5 Ne6 65. Kh4 b6 66. Kh5 Nd4 67. Kg5 Rg3+ 68. Kf4 Rc3 69. Ke5 Rxa3 70. Kxd4 Rd3+ 71. Kxd3 Kc7 72. Ke4 Kc6 73. Kf5 Kd6 74. Kg6 Ke7 75. Kh7 b5 76. Kh8 Ke8 77. Kg8 Ke7 78. Kh8 Kf6 79. Kg8 Kf5 80. Kh8 a3 81. Kg8 Ke5 82. Kh8 Ke6 83. Kg8 b4 84. Kh8 Ke5 85. Kg8 Kf4 86. Kh8 Kf3 87. Kg8 b3 88. Kh8 Kg3 89. Kg8 Kg2 90. Kh8 Kg1 91. Kg8 Kg2 92. Kh8 Kf2 93. Kg8 *
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "*"]
+
+1. Nc3 d5 2. a4 Nf6 3. Ra2 Nc6 4. Ra3 a6 5. Rb3 e5 6. h4 d4 7. Rh3 Bd6 8. Rf3 dxc3 9. Rbxc3 e4 10. Rxc6 bxc6 11. Rxf6 O-O 12. d3 Qxf6 13. dxe4 Re8 14. Bg5 Qxb2 15. Bf6 Bb4+ 16. c3 Bxc3+ 17. Bxc3 Qxc3+ 18. Qd2 Qxd2+ 19. Kxd2 Kf8 20. e3 Rb8 21. Kc3 Rd8 22. Bd3 c5 23. a5 h6 24. Kc2 Be6 25. Nf3 g5 26. Nd4 Bc8 27. Nc6 c4 28. Be2 Rb5 29. Bxc4 Rxa5 30. hxg5 Ra4 31. Bb3 Rd6 32. Na7 Ra5 33. Nxc8 Rc5+ 34. Kb1 Rd8 35. Bd5 hxg5 36. f4 f6 37. Ka1 Ra5+ 38. Kb2 g4 39. Be6 g3 40. e5 Rd2+ 41. Kc3 Rd8 42. Na7 Rc5+ 43. Bc4 Kg7 44. Kb4 Rcd5 45. exf6+ Kxf6 46. Bxd5 Rb8+ 47. Kc4 Rb2 48. Kc5 Rd2 49. Kc6 Rc2+ 50. Kb7 Re2 51. Kc6 Rc2+ 52. Kb7 Re2 53. Kc6 *
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "*"]
+
+1. c2 *
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "*"]
+
+1. Nc3 e5 2. h4 Nc6 3. Nd5 Bd6 4. Nxc7+ Bxc7 5. c3 Nf6 6. b3 d5 7. c4 h6 8. cxd5 Qxd5 9. Bb2 Qd8 10. Rc1 O-O 11. Ba3 Be6 12. Rxc6 bxc6 13. Qc1 c5 14. Qxc5 Qd7 15. Qxf8+ Rxf8 16. Bxf8 Ng4 17. f3 Kxf8 18. fxg4 a5 19. g5 h5 20. g4 Kg8 21. g6 f5 22. gxh5 Qc6 23. e4 Qc1+ 24. Ke2 Qc6 25. d3 Qc2+ 26. Ke3 Qc1+ 27. Ke2 a4 28. d4 Qc2+ 29. Ke1 Ba5+ *
+
+
+
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+[FEN "6k1/8/5QK1/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Qd8# 1-0
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+[FEN "7k/4B3/6KN/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Bf6# 1-0
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+[FEN "1k6/2R1N3/3K4/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Nc6+ Ka8 2. Ra7# 1-0
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+[FEN "1k6/8/2RKR3/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Re7 Ka8 2. Rc8# 1-0
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+[FEN "k7/1p6/1KP5/2N5/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. cxb7+ Kb8 2. Nd7# 1-0
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+[FEN "6k1/8/5QK1/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Qd8# 1-0
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+[FEN "7k/4B3/6KN/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Bf6# 1-0
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+[FEN "1k6/2R1N3/3K4/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Nc6+ Ka8 2. Ra7# 1-0
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+[FEN "1k6/8/2RKR3/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Re7 Ka8 2. Rc8# 1-0
+
+[Event "minimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Minimax"]
+[Black "Stockfish UCI_Elo 1320"]
+[Result "1-0"]
+[FEN "k7/1p6/1KP5/2N5/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. cxb7+ Kb8 2. Nd7# 1-0
+
+
+

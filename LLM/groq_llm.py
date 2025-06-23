@@ -15,7 +15,7 @@ client = AsyncGroq(api_key=api_key)
 
 
 SYSTEM_PROMPT = (
-    "You're a chess engine. I will provide FENs of positions, legal moves and piece color move turn it starts with white. "
+    "You're a chess engine. I will provide FENs of positions,and piece color move turn it starts with white. "
     "Respond with exactly one SAN move (e.g., 'Qh4#') and nothing else."
 )
 
@@ -26,9 +26,9 @@ async def get_move_from_groq(board: chess.Board) -> str:
     fen = board.fen()
     legal_moves = board.legal_moves
     if board.turn == chess.WHITE:
-        history.append({"role": "user", "content": f"Position FEN: {fen}, Turn : White, Legal Moves : {legal_moves} "})
+        history.append({"role": "user", "content": f"Position FEN: {fen}, Turn : White, "})
     else:
-        history.append({"role": "user", "content": f"Position FEN: {fen}, Turn : Black, Legal Moves : {legal_moves} "})
+        history.append({"role": "user", "content": f"Position FEN: {fen}, Turn : Black, "})
 
     resp = await client.chat.completions.create(
         model="llama3-8b-8192",
