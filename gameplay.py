@@ -129,7 +129,7 @@ def getStockFishAction(board):
 
 
 
-async def play_full_game_stockfish_vs_groc(board=chess.Board()):
+async def play_full_game_stockfish_vs_groq(board=chess.Board()):
     game = chess.pgn.Game()
     if board.fen() != chess.STARTING_FEN:
         game.setup(board)
@@ -398,7 +398,7 @@ async def play_full_game_minimax_vs_expectimax(board=chess.Board(), depth=1):
 
 if __name__ == "__main__":
 
-    asyncio.run(play_full_game_stockfish_vs_groc())
+    asyncio.run(play_full_game_stockfish_vs_groq())
 
     for fen in mates:
         asyncio.run(play_full_game_minimax_vs_stockfish(chess.Board(fen)))
