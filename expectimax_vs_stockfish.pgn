@@ -1,0 +1,250 @@
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. e3 e6 2. d4 Bb4+ 3. Bd2 Ba5 4. Bxa5 Qf6 5. h4 Qh6 6. Nc3 c5 7. Nb5 Kf8 8. Nf3 f6 9. Bd2 d5 10. h5 f5 11. a4 f4 12. Rh4 a6 13. Nc3 a5 14. b3 c4 15. Nb5 cxb3 16. Rb1 Ra7 17. c4 Qg5 18. Rxb3 Qg4 19. c5 Na6 20. Qb1 h6 21. e4 Qg6 22. Be2 Rh7 23. Nd6 Ra8 24. e5 Qg4 25. Qc1 b5 26. Rc3 bxa4 27. Ra3 Qxh4 28. Rxa4 Qg3 29. fxg3 Rh8 30. Nxc8 Rxc8 31. Ra2 Rc6 32. Bxa6 a4 33. Bb4 Rc8 34. Qxf4+ Ke8 35. Bb5+ Kd8 36. Ba5+ Ke7 37. Bd8+ Kxd8 38. Qh4+ g5 39. Qh3 a3 40. Nd2 Rc7 41. Ba6 Rc8 42. Qxe6 Rh7 43. Qxc8+ Ke7 44. Qc7+ Ke8 45. Bb5+ Rd7 46. Qb8+ Ke7 47. Rxa3 Ke6 48. Qb6+ Ke7 49. Qd6+ Rxd6 50. Ke2 Rc6 51. Bxc6 g4 52. Bb5 Ke6 53. Nb1 Ke7 54. Kd2 Ke6 55. Ra6+ Ke7 56. Rb6 Nf6 57. Rb7+ Nd7 58. Rxd7+ Ke8 59. Rxd5+ Ke7 60. Bc4 Ke8 61. Kc3 Ke7 62. Na3 Ke8 63. c6 Ke7 64. Rd7+ Ke8 65. Rh7 Kd8 66. Rd7+ Kc8 67. e6 Kb8 68. Rh7 Kc8 69. c7 Kb7 70. Ba6+ Kc6 71. c8=Q+ Kd5 72. Qc4+ Ke4 73. d5+ Ke5 74. Qc7+ Ke4 75. Rxh6 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. e3 e6 2. d4 Bb4+ 3. Nc3 Bxc3+ 4. bxc3 e5 5. dxe5 Qh4 6. Ba3 d5 7. Nf3 Qg3 8. fxg3 Bh3 9. gxh3 c5 10. Bb5+ Ke7 11. Qb1 g5 12. Ke2 f5 13. Bxc5+ Ke6 14. Bd3 f4 15. Nd4+ Kxe5 16. Nf3+ Ke6 17. Nxg5+ Kd7 18. Bb5+ Kc8 19. Rg1 h5 20. Ke1 a5 21. Ne6 Ra7 22. exf4 h4 23. Nd4 Kc7 24. Bd6+ Kc8 25. Bc5 Kc7 26. Bb6+ Kc8 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. e4 c6 2. Nc3 Qc7 3. a4 Kd8 4. Be2 f5 5. d4 b6 6. Nh3 Bb7 7. Bf4 Qxf4 8. Nxf4 d6 9. d5 c5 10. Kf1 c4 11. Ne6+ Kc8 12. exf5 g5 13. Nxg5 Bc6 14. Bf3 e5 15. Na2 c3 16. bxc3 Bb7 17. Kg1 e4 18. Be2 Ne7 19. h4 Rg8 20. Rb1 Rxg5 21. hxg5 Ng8 22. Bf1 a5 23. Rh2 e3 24. fxe3 h5 25. gxh6 Ra7 26. Bd3 Ra8 27. Rh3 Ra7 28. Rc1 Ra8 29. Kf2 Ra7 30. h7 Nh6 31. Qf3 Ra8 32. Kg3 Ra7 33. Rf1 Ra8 34. Nc1 Ra7 35. e4 Ra8 36. c4 Ba6 37. Ne2 Bxc4 38. Bxc4 Kd8 39. Nf4 Ke8 40. f6 Ra6 41. Bb5+ Nd7 42. Bxa6 Bg7 43. h8=Q+ Bxh8 44. Bd3 Nf8 45. e5 Ng8 46. Qh5+ Kd8 47. Qe2 Ke8 48. Qh5+ Kd8 49. Ne6+ Kc8 50. Kf2 Kb8 51. f7 Ka8 52. Qf3 Bg7 53. fxg8=N Nxe6 54. dxe6+ d5 55. c3 Bxe5 56. Re1 b5 57. Nf6 bxa4 58. Rxe5 a3 59. Ne4 a4 60. Bc2 a2 61. Rh1 Ka7 62. Rh7+ Ka6 63. Qe2+ Ka5 64. Qd1 Ka6 65. Qe2+ Ka5 66. e7 Kb6 67. Re6+ *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. c4 e6 2. d4 Bb4+ 3. Nc3 Bxc3+ 4. Bd2 Qg5 5. Bxc3 Qc1 6. Qxc1 e5 7. dxe5 Ke7 8. Qg5+ Nf6 9. exf6+ Ke8 10. Qd2 b5 11. Kd1 gxf6 12. Qe3+ Kf8 13. Qh6+ Ke7 14. Qe3+ Kf8 15. cxb5 c5 16. h4 Ba6 17. Qh6+ Ke7 18. Qe3+ Kf8 19. g3 Kg8 20. Rh2 d5 21. Rb1 h5 22. Qd2 Rh6 23. Bg2 d4 24. f4 c4 25. g4 hxg4 26. Ba5 Kh8 27. Nh3 Rxh4 28. Qe1 f5 29. Qxh4+ Kg7 30. Qg5+ Kf8 31. Qe7+ Kxe7 32. Bb4+ Ke8 33. Bd2 d3 34. bxa6 f6 35. Rh1 g3 36. Bxa8 Nc6 37. exd3 Nd8 38. Re1+ Kf8 39. Bb4+ Kg8 40. Bc3 Kh8 41. Bxf6+ Kh7 42. Bb7 Nxb7 43. dxc4 Kh6 44. a4 Kh5 45. b4 Kh6 46. b5 g2 47. Bg5+ Kh5 48. Bf6 Kh6 49. Be7 Kh5 50. Ng1 Kh6 51. Bf8+ Kh5 52. c5 Kh4 53. Be7+ Kh5 54. a5 Kh6 55. Ra1 Kh7 56. Nf3 Kh8 57. Nd4 Kg8 58. Bf6 Kh7 59. c6 Nc5 60. c7 Kg8 61. Nxf5 Kf8 62. Ne3 Kg8 63. Nd5 Kf8 64. Rb1 Kg8 65. Rc1 Kf8 66. Rb1 Kg8 67. Ra1 Kf8 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 4. exg8 Nb7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 4. exg8 Nb7 5. e1 Na7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 4. exg8 Nb7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 4. exg8 Nb7 5. e1 Na7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 4. exg8 Nb7 5. e1 Na7 6. d1 Nb7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 4. exg8 Nb7 5. e1 Na7 6. d1 Nb7 7. f6 Na7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 4. exg8 Nb7 5. e1 Na7 6. d1 Nb7 7. f6 Na7 8. g8 Nb7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 4. exg8 Nb7 5. e1 Na7 6. d1 Nb7 7. f6 Na7 8. g8 Nb7 9. a1 Nb8 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+
+1. cxc1 Na7 2. f1 Nb7 3. a1 Nb8 4. exg8 Nb7 5. e1 Na7 6. d1 Nb7 7. f6 Na7 8. g8 Nb7 9. a1 Nb8 10. e1 Nb7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "1-0"]
+[FEN "6k1/8/5QK1/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Qg7# 1-0
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "1-0"]
+[FEN "7k/4B3/6KN/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Bf6# 1-0
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+[FEN "1k6/2R1N3/3K4/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Rc4 Ka7 2. Rc5 Kb6 3. Rh5 Kb7 4. Nf5 Kb8 5. Kc6 Ka7 6. Nh4 Kb8 7. Ng6 Ka7 8. Kc7 Ka6 9. Kc8 Ka7 10. Kd8 Kb7 11. Rh1 Ka7 12. Rh6 Kb7 13. Nf8 Ka7 14. Kc7 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "*"]
+[FEN "1k6/8/2RKR3/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Re8+ Kb7 2. Re7+ Kb8 3. Re8+ Kb7 4. Re7+ Kb8 *
+
+[Event "expectimax_vs_stockfish"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Stockfish UCI_Elo 1320"]
+[Black "Expectimax"]
+[Result "1/2-1/2"]
+[FEN "k7/1p6/1KP5/2N5/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. c7 1/2-1/2
+
