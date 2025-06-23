@@ -14,9 +14,12 @@ mates = [
    "1k6/2R1N3/3K4/8/8/8/8/8 w - - 0 1",  # 3: King + knight and Rook vs King (Mate in 2)
    "1k6/8/2RKR3/8/8/8/8/8 w - - 0 1",  # 4: King + 2 Rook vs King (Mate in 2)
    "k7/1p6/1KP5/2N5/8/8/8/8 w - - 0 1"#,# 5 : Knight + Pawn (Mate in 2)
+   #"R2BRK2/PPPP2PP/5B2/8/5q2/8/ppQ2ppp/r1b1rk2 w - - 0 1"
    #"1Bb3BN/R2Pk2r/1Q5B/4q2R/2bN4/4Q1BK/1p6/1bq1R1rb w - - 0 1"  # this is a very difficult mate And will note be used  in the final report  Mimmax  and stockfish halucinates here. LOL
 
 ]
+'''mates =[
+  "R2BRK2/PPPP2PP/5B2/8/5q2/8/ppQ2ppp/r1b1rk2 w - - 0 1" ]'''
 
 #Stockfish needs to be installed on your system beofore you can  execute this file
 
@@ -28,7 +31,7 @@ svg_path=system=os.path.realpath('PLayEngine.html')
 
 def playMiniMax(depth=3):
     startState=board
-    time.sleep(1)
+    #time.sleep(1)
 
     MyPlay=Minimax(board,startState,depth,captured=None,moving_piece=None,move_square=None)
 
@@ -38,7 +41,7 @@ def playMiniMax(depth=3):
     board.push(MyPlay)
 
     svg_path=system=os.path.realpath('PLayEngine.html')
-    time.sleep(1)
+    #time.sleep(1)
     #webbrowser.open('file://'+svg_path)
     while not board.is_game_over():
         with chess.engine.SimpleEngine.popen_uci(chess_engine) as engine:
@@ -55,7 +58,7 @@ def playMiniMax(depth=3):
                 f.write(chess.svg.board(board))
             if board.is_checkmate():
                 return "Oponent Wins"
-            time.sleep(1)
+            #time.sleep(1)
 
             startState=board
             MyPlay=Minimax(board,startState,depth,captured,moving_piece,stockfishMove.to_square)
@@ -66,7 +69,7 @@ def playMiniMax(depth=3):
                 f.write(chess.svg.board(board))
             if board.is_checkmate():
                 return "Congratualtions you are vitorious"
-            time.sleep(1)
+            #time.sleep(1)
 for item in mates:
     board=chess.Board(item)
     playMiniMax()
